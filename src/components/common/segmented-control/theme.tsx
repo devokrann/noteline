@@ -2,13 +2,15 @@
 
 import React from 'react';
 
-import { SegmentedControl, Group } from '@mantine/core';
+import { SegmentedControl, Group, SegmentedControlProps } from '@mantine/core';
 
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react';
 import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
 import { useColorSchemeHandler } from '@/hooks/color-scheme';
 
-export default function Theme() {
+export default function Theme({
+  ...restProps
+}: {} & Omit<SegmentedControlProps, 'data'>) {
   const { colorScheme, handleChange } = useColorSchemeHandler();
 
   return (
@@ -41,6 +43,7 @@ export default function Theme() {
           value: 'auto',
         },
       ]}
+      {...restProps}
     />
   );
 }
