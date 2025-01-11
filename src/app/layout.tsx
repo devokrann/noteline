@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DM_Sans } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
@@ -43,7 +43,7 @@ import ProviderStore from '@/components/providers/store';
 import { cookies } from 'next/headers';
 import AffixiCookies from '@/components/common/affixi/cookies';
 
-const noto = DM_Sans({ subsets: ['latin'] });
+const font = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -78,9 +78,13 @@ export default async function RootLayout({
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
 
-      <body className={noto.className}>
+      <body className={font.className}>
         <ProviderStore
           colorScheme={colorSchemeState || 'light'}
           session={session.user}
