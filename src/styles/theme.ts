@@ -23,48 +23,48 @@ const appTheme = createTheme({
   activeClassName: 'active',
 
   colors: {
-    priWhite: [
-      '#000000', // Black
-      '#1a1a1a',
-      '#333333',
-      '#666666',
-      '#808080', // Medium Gray
-      '#999999',
-      '#b3b3b3',
-      '#cccccc',
-      '#f2f2f2',
-      '#ffffff', // White
+    priLight: [
+      '#fcf0ea',
+      '#e0d6d2',
+      '#c7bdb7',
+      '#b0a29c',
+      '#988980',
+      '#7f6f67',
+      '#63564f',
+      '#483d38', // main (7)
+      '#2d2520',
+      '#150a03',
     ],
 
-    priBlack: [
-      '#ffffff', // White
-      '#f2f2f2',
-      '#cccccc',
-      '#b3b3b3',
-      '#999999', // Medium Gray
-      '#808080',
-      '#666666',
-      '#333333',
-      '#1a1a1a',
-      '#000000', // Black
+    priDark: [
+      '#fef4e8',
+      '#f1e7dc',
+      '#ddcebd',
+      '#c8b49b', // main (3)
+      '#b79d7e',
+      '#ad8f6b',
+      '#a88760',
+      '#93744f',
+      '#846744',
+      '#745835',
     ],
 
     pri: virtualColor({
       name: 'pri',
-      light: 'blue',
-      dark: 'yellow',
+      light: 'priLight',
+      dark: 'priDark',
     }),
   },
 
   primaryColor: 'pri',
 
-  defaultRadius: 'sm',
+  defaultRadius: 'md',
 
-  primaryShade: { light: 6, dark: 6 },
+  primaryShade: { light: 7, dark: 3 },
 
   defaultGradient: {
-    from: 'red',
-    to: 'blue',
+    from: 'priLight',
+    to: 'priDark',
     deg: 45,
   },
 
