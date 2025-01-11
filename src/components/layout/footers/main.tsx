@@ -19,8 +19,6 @@ import {
 
 import LayoutSection from '@/components/layout/section';
 
-import { images } from '@/assets/images';
-
 import classes from './main.module.scss';
 import appData from '@/data/app';
 import { dataSocials } from '@/app/(marketing)/contact/page';
@@ -33,7 +31,7 @@ import {
 import SegmentedControlTheme from '@/components/common/segmented-control/theme';
 import { IconCircleFilled } from '@tabler/icons-react';
 import FormNewsletter from '@/components/form/newsletter';
-import ImageDefault from '@/components/common/images/default';
+import ImageBrand from '@/components/common/images/brand';
 
 export default function Main() {
   return (
@@ -41,14 +39,7 @@ export default function Main() {
       <Stack gap={SECTION_SPACING}>
         <Flex align={'center'} justify={{ base: 'center', md: 'start' }}>
           <Anchor component={Link} href={'/'}>
-            <ImageDefault
-              src={images.brand.logo.light}
-              alt={appData.name.app}
-              height={{ base: 40 }}
-              width={{ base: 96 }}
-              fit="contain"
-              mode="grid"
-            />
+            <ImageBrand height={{ base: 40 }} width={{ base: 96 }} />
           </Anchor>
         </Flex>
 

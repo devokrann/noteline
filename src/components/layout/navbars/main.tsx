@@ -36,9 +36,7 @@ import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
 import { useMediaQuery } from '@mantine/hooks';
 import { usePathname } from 'next/navigation';
 import { useAppSelector } from '@/hooks/redux';
-import ImageDefault from '@/components/common/images/default';
-import { images } from '@/assets/images';
-import appData from '@/data/app';
+import ImageBrand from '@/components/common/images/brand';
 
 export default function Main({
   options,
@@ -87,16 +85,7 @@ export default function Main({
     </MenuNavbar>
   ));
 
-  const imageBrand = (
-    <ImageDefault
-      src={images.brand.logo.light}
-      alt={appData.name.app}
-      height={{ base: 24 }}
-      width={{ base: 72 }}
-      fit="contain"
-      mode="grid"
-    />
-  );
+  const imageBrand = <ImageBrand height={{ base: 24 }} width={{ base: 72 }} />;
 
   return (
     <LayoutSection
