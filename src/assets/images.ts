@@ -3,13 +3,13 @@ const iconUrl = `https://img.icons8.com`;
 
 export const images = {
   brand: {
-    logo: {
-      light: `${baseUrl}/logos/brand/logo-light.png`,
-      dark: `${baseUrl}/logos/brand/logo-dark.png`,
-    },
     icon: {
-      light: `${baseUrl}/avatars/brand/icon/icon-light.png`,
-      dark: `${baseUrl}/avatars/brand/icon/icon-dark.png`,
+      light: `${baseUrl}/brand/icon/light.png`,
+      dark: `${baseUrl}/brand/icon/dark.png`,
+    },
+    logo: {
+      light: `${baseUrl}/brand/logo/light.png`,
+      dark: `${baseUrl}/brand/logo/dark.png`,
     },
   },
 

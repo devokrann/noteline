@@ -1,6 +1,6 @@
 import sample from './sample';
 
-const companyName = 'Brix';
+const companyName = 'Noteline';
 const appName = companyName;
 const companyOneLiner = sample.text.sentence;
 const companyDescription = sample.text.prose;
