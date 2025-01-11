@@ -8,14 +8,17 @@ import { images } from '@/assets/images';
 import appData from '@/data/app';
 
 export default function Brand({
+  staticImage,
   ...restProps
-}: Omit<ImagePropsComponent, 'src' | 'alt' | 'fit'>) {
+}: Omit<ImagePropsComponent, 'src' | 'alt' | 'fit'> & {
+  staticImage?: string;
+}) {
   const colorScheme = useAppSelector((state) => state.colorScheme.value);
   useEffect(() => {}, [colorScheme]);
 
   return (
     <ImageDefault
-      src={getBrandColorScheme(images.brand.logo)}
+      src={staticImage || getBrandColorScheme(images.brand.logo)}
       alt={appData.name.app}
       fit="contain"
       mode="grid"

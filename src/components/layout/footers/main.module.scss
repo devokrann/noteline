@@ -1,6 +1,9 @@
 .footer {
-  background-color: var(--mantine-color-body);
-  border-top: 1px solid var(--mantine-color-default-border);
+  background-color: light-dark(
+    var(--mantine-color-priLight-8),
+    var(--mantine-color-priLight-9)
+  );
+  color: var(--mantine-color-white);
 }
 
 .listItem {
@@ -12,8 +15,10 @@
 }
 
 .link {
-  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-6));
-  font-size: var(--mantine-font-size-sm);
+  color: light-dark(
+    var(--mantine-color-priDark-3),
+    var(--mantine-color-priDark-3)
+  );
   font-weight: 500;
 
   @include hover {

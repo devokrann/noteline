@@ -5,13 +5,10 @@ import {
   Grid,
   Text,
   Title,
-  List,
   Anchor,
   Group,
   GridCol,
-  ListItem,
   Stack,
-  Badge,
   Divider,
 } from '@mantine/core';
 import LayoutSection from '@/components/layout/section';
@@ -20,140 +17,234 @@ import appData from '@/data/app';
 import ImageBrand from '@/components/common/images/brand';
 import { images } from '@/assets/images';
 import ImageDefault from '@/components/common/images/default';
-import { getRandomColor } from '@/utilities/generators/color';
 import { SECTION_SPACING } from '@/data/constants';
+import FormNewsletter from '@/components/form/newsletter';
 
 export default function Main() {
   return (
-    <LayoutSection id={'partial-footer-main'} padded className={classes.footer}>
-      <Grid gutter={{ base: 'xl', md: 'md' }}>
-        <GridCol span={{ base: 12, md: 4.5 }}>
-          <Stack ta={{ base: 'center', md: 'start' }}>
+    <div className={classes.footer}>
+      <LayoutSection id={'partial-footer-main'} pt={SECTION_SPACING}>
+        <Grid gutter={'xl'}>
+          <GridCol span={{ base: 12, md: 2.5 }}>
             <Flex align={'center'} justify={{ base: 'center', md: 'start' }}>
               <Anchor component={Link} href={'/'}>
-                <ImageBrand height={{ base: 56 }} width={{ base: 112 }} />
+                <ImageBrand
+                  staticImage={images.brand.logo.dark}
+                  height={{ base: 64 }}
+                  width={{ base: 160 }}
+                />
               </Anchor>
             </Flex>
+          </GridCol>
 
-            <Text inherit maw={{ base: '100%', md: '85%' }}>
+          <GridCol span={{ base: 12, md: 5, lg: 5.5 }}>
+            <Text inherit fz={'sm'} ta={{ base: 'center', sm: 'start' }}>
               At {appData.name.app}, we believe in the power of stories. From
               personal musings to professional insights, our platform is
               designed to amplify your voice and connect you with a world of
-              readers. Join a vibrant community where creativity meets
-              connection, and let your words leave a lasting impact.
+              readers.
             </Text>
-          </Stack>
-        </GridCol>
+          </GridCol>
 
-        <GridCol span={{ base: 12, md: 7.5 }} visibleFrom="sm">
-          <Grid gutter={{ base: 'xl' }}>
-            <GridCol span={{ base: 6, sm: 4 }}>
-              <Flex
-                direction={'column'}
-                align={{ base: 'center', md: 'start' }}
-                gap={'xl'}
-              >
-                <Title order={4}>Navigation</Title>
+          <GridCol span={{ base: 12, md: 4.5, lg: 4 }}>
+            <Flex
+              direction={'column'}
+              align={{ base: 'center', sm: 'end' }}
+              gap={'xs'}
+            >
+              <FormNewsletter />
 
-                <Grid gutter={'xs'}>
-                  {linkSets.navigation.map((link) => (
-                    <GridCol key={link.link} span={6}>
-                      <Flex justify={{ base: 'center', md: 'start' }}>
-                        <Anchor
-                          component={Link}
-                          href={link.link}
-                          title={link.label}
-                          className={classes.link}
-                        >
-                          {link.label}
-                        </Anchor>
-                      </Flex>
-                    </GridCol>
-                  ))}
-                </Grid>
-              </Flex>
-            </GridCol>
+              <Stack gap={'xs'}>
+                <Text c={'dimmed'} ta={{ base: 'center', sm: 'end' }} fz={'xs'}>
+                  By subscribing you agree to our{' '}
+                  <Anchor href="#" inherit underline="always">
+                    Privacy Policy
+                  </Anchor>
+                  .
+                </Text>
+              </Stack>
+            </Flex>
+          </GridCol>
+        </Grid>
+      </LayoutSection>
 
-            <GridCol span={{ base: 6, sm: 4 }}>
-              <Flex
-                direction={'column'}
-                align={{ base: 'center', md: 'start' }}
-                gap={'xl'}
-              >
-                <Title order={4}>Browse By Tag</Title>
+      <LayoutSection id={'partial-footer-divider'} margined>
+        <Divider
+          mt={SECTION_SPACING}
+          mb={SECTION_SPACING / 2}
+          color="var(--mantine-color-default-border)"
+        />
+      </LayoutSection>
 
-                <Flex
-                  align={'center'}
-                  gap={'xs'}
-                  justify={{ base: 'center', md: 'start' }}
-                  wrap={'wrap'}
-                >
-                  {linkSets.tags.map((link) => (
-                    <Badge
-                      key={link.link}
-                      variant="light"
-                      component={Link}
-                      href={link.link}
-                      title={link.label}
-                      style={{ cursor: 'pointer' }}
-                      radius={'md'}
-                      color={getRandomColor()}
-                      size="md"
-                    >
-                      {link.label}
-                    </Badge>
-                  ))}
-                </Flex>
-              </Flex>
-            </GridCol>
+      <LayoutSection id={'partial-footer-main'} margined>
+        <Grid gutter={{ base: 'xl', md: 'md' }} fz={'sm'}>
+          <GridCol span={{ base: 12, xs: 6, md: 3 }}></GridCol>
 
-            <GridCol span={{ base: 6, sm: 4 }}>
-              <Flex
-                direction={'column'}
-                align={{ base: 'center', md: 'start' }}
-                gap={'xl'}
-              >
-                <Title order={4}>Community</Title>
+          <GridCol span={{ base: 12, xs: 6, md: 3 }}>
+            <Flex
+              direction={'column'}
+              align={{ base: 'center', xs: 'start' }}
+              gap={'xl'}
+            >
+              <Title order={4}>Navigation</Title>
 
-                <List listStyleType="none" spacing={'xs'}>
-                  {linkSets.community.map((link) => (
-                    <ListItem key={link.link} className={classes.listItem}>
+              <Grid gutter={'xs'}>
+                {linkSets.navigation.map((link) => (
+                  <GridCol key={link.link} span={6}>
+                    <Flex justify={{ base: 'center', xs: 'start' }}>
                       <Anchor
                         component={Link}
                         href={link.link}
                         title={link.label}
                         className={classes.link}
                       >
-                        <Group gap={'xs'}>
-                          <ImageDefault
-                            src={link.image}
-                            alt={link.label}
-                            height={{ base: 20 }}
-                            width={{ base: 20 }}
-                          />
-
-                          {link.label}
-                        </Group>
+                        {link.label}
                       </Anchor>
-                    </ListItem>
-                  ))}
-                </List>
+                    </Flex>
+                  </GridCol>
+                ))}
+              </Grid>
+            </Flex>
+          </GridCol>
+
+          <GridCol span={{ base: 12, xs: 6, md: 3 }}>
+            <Flex
+              direction={'column'}
+              align={{ base: 'center', xs: 'start' }}
+              gap={'xl'}
+            >
+              <Title order={4}>Get Regular Updates</Title>
+
+              <Flex
+                direction={'column'}
+                align={{ base: 'center', xs: 'start' }}
+                gap={'xs'}
+              >
+                {linkSets.community.map((link) => (
+                  <Anchor
+                    key={link.link}
+                    component={Link}
+                    href={link.link}
+                    title={link.label}
+                    className={classes.link}
+                  >
+                    <Group gap={'xs'}>
+                      <ImageDefault
+                        src={link.image}
+                        alt={link.label}
+                        height={{ base: 20 }}
+                        width={{ base: 20 }}
+                      />
+
+                      {link.label}
+                    </Group>
+                  </Anchor>
+                ))}
               </Flex>
-            </GridCol>
-          </Grid>
-        </GridCol>
-      </Grid>
+            </Flex>
+          </GridCol>
 
-      <Divider
-        mt={SECTION_SPACING}
-        mb={SECTION_SPACING / 2}
-        color="var(--mantine-color-default-border)"
-      />
+          <GridCol span={{ base: 12, xs: 6, md: 3 }}>
+            <Flex
+              direction={'column'}
+              align={{ base: 'center', xs: 'start' }}
+              gap={'xl'}
+            >
+              <Title order={4}>Our Mobile App</Title>
 
-      <Text inherit c={'dimmed'} fz={'sm'} mt={'md'} ta={'center'}>
-        © {new Date().getFullYear()} {appData.name.app}. All Rights Reserved.
-      </Text>
-    </LayoutSection>
+              <Flex
+                align={{ base: 'center', xs: 'start' }}
+                direction={'column'}
+              >
+                <Text inherit ta={{ base: 'center', xs: 'start' }}>
+                  Download our App and get the latest Breaking News Alerts and
+                  latest headlines and daily articles near you.
+                </Text>
+
+                <Flex
+                  align={'center'}
+                  gap={'xs'}
+                  justify={{ base: 'center', xs: 'start' }}
+                >
+                  <Anchor href={'/'}>
+                    <ImageBrand
+                      staticImage={images.icons.store.apple}
+                      height={{ base: 64 }}
+                      width={{ base: 104 }}
+                    />
+                  </Anchor>
+
+                  <Anchor href={'/'}>
+                    <ImageBrand
+                      staticImage={images.icons.store.google}
+                      height={{ base: 64 }}
+                      width={{ base: 104 }}
+                    />
+                  </Anchor>
+                </Flex>
+              </Flex>
+            </Flex>
+          </GridCol>
+        </Grid>
+      </LayoutSection>
+
+      <LayoutSection id={'partial-footer-topicx'} margined>
+        <Stack>
+          <Title order={3} ta={{ base: 'center', xs: 'start' }}>
+            Hot Topics
+          </Title>
+
+          <Flex
+            gap={'md'}
+            align={'center'}
+            wrap="wrap"
+            justify={{ base: 'center', xs: 'start' }}
+          >
+            {tags.map((tag, index) => (
+              <Anchor key={index} href={'#'} fw={500} className={classes.link}>
+                {tag}
+              </Anchor>
+            ))}
+          </Flex>
+        </Stack>
+      </LayoutSection>
+
+      <LayoutSection
+        id={'partial-footer-fine-print'}
+        pt={SECTION_SPACING / 1.5}
+        pb={SECTION_SPACING * 1.5}
+        bg={
+          'light-dark(var(--mantine-color-priLight-9), var(--mantine-color-priLight-8))'
+        }
+      >
+        <Flex
+          direction={{ base: 'column', sm: 'row' }}
+          justify={{ base: 'center', sm: 'space-between' }}
+          align={'center'}
+          gap={'xs'}
+          fw={500}
+        >
+          <Text inherit ta={'center'}>
+            © {new Date().getFullYear()} {appData.name.app}. All Rights
+            Reserved.
+          </Text>
+
+          <Group>
+            {linkSets.legal.map((link) => (
+              <Anchor
+                key={link.link}
+                href={link.link}
+                title={link.label}
+                className={classes.link}
+                inherit
+              >
+                {link.label}
+              </Anchor>
+            ))}
+          </Group>
+        </Flex>
+      </LayoutSection>
+    </div>
   );
 }
 
@@ -170,17 +261,13 @@ const linkSets = {
     { label: 'Startups', link: '#Startups' },
     { label: 'Gadgets', link: '#Gadgets' },
   ],
-  tags: [
-    { label: 'travel', link: '#travel' },
-    { label: 'business', link: '#business' },
-    { label: 'tech', link: '#tech' },
-    { label: 'gadgets', link: '#gadgets' },
-    { label: 'lifestyle', link: '#lifestyle' },
-    { label: 'vaccine', link: '#vaccine' },
-    { label: 'marketing', link: '#marketing' },
-    { label: 'sports', link: '#sports' },
-    { label: 'politics', link: '#politics' },
+
+  legal: [
+    { label: 'Terms', link: '#terms' },
+    { label: 'Privacy', link: '#privacy' },
+    { label: 'Cookies', link: '#cookies' },
   ],
+
   community: [
     {
       label: 'Facebook',
@@ -204,3 +291,33 @@ const linkSets = {
     },
   ],
 };
+
+const tags = [
+  'Covid-19',
+  'Politics',
+  'Entertainment',
+  'Media',
+  'Royalist',
+  'World',
+  'Half',
+  'Full',
+  'Scouted',
+  'Travel',
+  'Beast',
+  'Inside',
+  'Crossword',
+  'Newsletters',
+  'Podcasts',
+  'Auction',
+  '2022',
+  'Protests',
+  'NewsCyber',
+  'Education',
+  'Sports',
+  'Tech',
+  'And',
+  'Auto',
+  'Opinion',
+  'Share',
+  'Market',
+];
