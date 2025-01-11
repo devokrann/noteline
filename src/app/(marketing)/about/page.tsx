@@ -55,7 +55,10 @@ export default async function About() {
                 shadow="xs"
                 padding={'xl'}
                 bg={
-                  'light-dark(var(--mantine-color-white), var(--mantine-color-white))'
+                  'light-dark(var(--mantine-color-white), var(--mantine-color-priDark-3))'
+                }
+                c={
+                  'light-dark(var(--mantine-color-text), var(--mantine-color-body))'
                 }
                 h={'100%'}
               >
