@@ -10,8 +10,8 @@ body {
 }
 
 body {
-  background-color: var(--mantine-color-body);
-  color: var(--mantine-color-text);
+  background-color: var(--mantine-color-body) !important;
+  color: var(--mantine-color-text) !important;
 
   font-family: var(--mantine-font-family);
   font-size: var(--mantine-font-size-md);

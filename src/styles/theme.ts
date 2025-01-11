@@ -96,15 +96,21 @@ const appTheme = createTheme({
     }),
 
     TextInput: TextInput.extend({
-      defaultProps: { variant: 'filled' },
+      defaultProps: {
+        // variant: 'filled',
+      },
     }),
 
     Textarea: Textarea.extend({
-      defaultProps: { variant: 'filled' },
+      defaultProps: {
+        // variant: 'filled',
+      },
     }),
 
     PasswordInput: PasswordInput.extend({
-      defaultProps: { variant: 'filled' },
+      defaultProps: {
+        // variant: 'filled',
+      },
     }),
 
     Notification: Notification.extend({ classNames: classesNotification }),
