@@ -1,32 +1,27 @@
-import { FONT, SECTION_SPACING } from '@/data/constants';
-import { Card, Container, Stack, Text, Title } from '@mantine/core';
+import { SECTION_SPACING } from '@/data/constants';
+import { Card, Container, Group, Stack, Text, Title } from '@mantine/core';
 import React from 'react';
 import FormNewsletter from '@/components/form/newsletter';
 
 export default function Newsletter() {
   return (
-    <Card
-      bg={
-        'linear-gradient(-60deg, var(--mantine-color-pri-4) 0%, var(--mantine-color-pri-7) 100%)'
-      }
-      padding={0}
-      c={'var(--mantine-color-body)'}
-      pos={'relative'}
-    >
+    <Card bg={'transparent'} padding={0} pos={'relative'}>
       <Container size={'sm'}>
-        <Stack gap={'xl'} py={SECTION_SPACING}>
-          <Stack>
-            <Title order={2} fz={FONT.CTA_TITLE} ta={'center'}>
-              Want our product updates?
+        <Stack gap={'xl'} py={SECTION_SPACING} align="center">
+          <Stack align="center">
+            <Title order={2} fz={{ base: 24, sm: 32 }} ta={'center'}>
+              Subscribe to our Newsletter
             </Title>
 
-            <Text fz={'xl'} ta={'center'}>
-              Sign up for our newsletter. Reprehenderit ad esse et non officia
-              in nulla. Id proident tempor incididunt nostrud nulla et culpa.
+            <Text ta={'center'} w={{ base: '100%', xs: '75%' }}>
+              Subscribe to our email newsletter to get the latest posts
+              delivered right to your email.
             </Text>
           </Stack>
 
-          <FormNewsletter />
+          <Group w={{ sm: '75%' }} justify="center">
+            <FormNewsletter />
+          </Group>
         </Stack>
       </Container>
     </Card>

@@ -3,20 +3,17 @@
 import React from 'react';
 
 import {
-  Anchor,
   Box,
   Button,
   Grid,
   GridCol,
   Select,
   SimpleGrid,
-  Text,
   TextInput,
   Textarea,
 } from '@mantine/core';
 import { useFormEmailInquiry } from '@/hooks/form/email/inquiry';
 import TooltipInputInfo from '../common/tooltips/input/info';
-import Link from 'next/link';
 
 export default function Contact({
   props,
@@ -54,15 +51,6 @@ export default function Contact({
               span={{ base: 12, xs: 6, md: options?.modal ? 12 : undefined }}
             >
               <TextInput
-                label={options?.modal ? undefined : 'Phone'}
-                aria-label={options?.modal ? 'Phone' : undefined}
-                placeholder="Your Phone"
-                {...form.getInputProps('phone')}
-              />
-            </GridCol>
-
-            <GridCol span={12}>
-              <TextInput
                 required
                 label={options?.modal ? undefined : 'Email'}
                 aria-label={options?.modal ? 'Email' : undefined}
@@ -79,10 +67,10 @@ export default function Contact({
             <GridCol span={12}>
               <Select
                 required
-                label={options?.modal ? undefined : 'Inquiry'}
-                aria-label={options?.modal ? 'Inquiry' : undefined}
+                label={options?.modal ? undefined : 'Subject'}
+                aria-label={options?.modal ? 'Subject' : undefined}
                 placeholder={
-                  options?.modal ? 'Inquiry *' : 'What are you inquiring about?'
+                  options?.modal ? 'Subject *' : 'What are you inquiring about?'
                 }
                 {...form.getInputProps('subject')}
                 data={[
@@ -105,22 +93,12 @@ export default function Contact({
                   options?.modal ? 'Message *' : 'Write your message here...'
                 }
                 autosize
-                minRows={2}
+                minRows={5}
                 styles={{ input: { height: '100%' } }}
                 maxRows={15}
                 resize="vertical"
                 {...form.getInputProps('message')}
               />
-            </GridCol>
-
-            <GridCol span={12}>
-              <Text fz={'sm'} c={'dimmed'}>
-                By submitting this form, I agree to the{' '}
-                <Anchor component={Link} href="#pp" inherit fw={500}>
-                  privacy policy
-                </Anchor>
-                .
-              </Text>
             </GridCol>
           </Grid>
         </GridCol>
