@@ -68,6 +68,8 @@ const appTheme = createTheme({
     deg: 45,
   },
 
+  headings: { fontFamily: 'Lora, sans-serif' },
+
   cursorType: 'pointer',
 
   components: {
