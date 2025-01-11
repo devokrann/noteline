@@ -24,5 +24,10 @@ export const images = {
 
     google: `${iconUrl}/?size=100&id=17949&format=png&color=000000`,
     credentials: `${iconUrl}/?size=100&id=jicLxt1sA2qa&format=png&color=000000`,
+
+    store: {
+      apple: '/icons/store/app-store.svg',
+      google: '/icons/store/google-play.svg',
+    },
   },
 };
