@@ -2,18 +2,7 @@ import React from 'react';
 
 import { Metadata } from 'next';
 
-import {
-  Anchor,
-  Card,
-  Center,
-  Flex,
-  Group,
-  SimpleGrid,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-} from '@mantine/core';
+import { Anchor, Divider, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 
 import {
   IconAt,
@@ -30,118 +19,109 @@ import LayoutPage from '@/components/layout/page';
 import LayoutSection from '@/components/layout/section';
 import FormContact from '@/components/form/contact';
 import IntroPage from '@/components/layout/intro/page';
-
+import IframeContact from '@/components/common/iframes/contact';
 import appData from '@/data/app';
-import {
-  ICON_SIZE,
-  ICON_STROKE_WIDTH,
-  ICON_WRAPPER_SIZE,
-} from '@/data/constants';
+import { images } from '@/assets/images';
 
 export const metadata: Metadata = { title: 'Contact' };
 
 export default async function Contact() {
   return (
     <LayoutPage>
-      <IntroPage
-        props={{
-          path: 'Reach Out',
-          title: 'Contact Us',
-          desc: 'Please reach out to us if you have questions about our enterprise offerings, or anything else.',
-        }}
-      />
+      <IntroPage props={{ title: 'Contact Us' }} />
 
-      <LayoutSection id={'page-contact'} margined>
-        <Card
-          bg={
-            'linear-gradient(-60deg, var(--mantine-color-pri-4) 0%, var(--mantine-color-pri-7) 100%)'
-          }
-          c={'var(--mantine-color-body)'}
-          p={{ base: 'xs', xs: 32, lg: 64 }}
-        >
-          <SimpleGrid cols={{ base: 1, md: 2 }}>
-            <Stack gap={'xl'}>
-              <Stack gap={'xs'} pt={{ base: 'xl', xs: 0 }}>
-                <Title order={2} ta={'start'}>
-                  Drop Us A Line
-                </Title>
+      <LayoutSection id={'map'} margined containerized={'md'}>
+        <IframeContact />
+      </LayoutSection>
 
-                <Text ta={'start'} w={{ md: '80%', lg: '90%' }}>
-                  Leave your email and we will get back to you within 24 hours.
-                </Text>
-              </Stack>
+      <LayoutSection id={'contact-details'} margined containerized={'sm'}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
+          <Stack>
+            <Title order={2}>Advertise / Sponsorships</Title>
 
-              <SimpleGrid cols={{ base: 1, xs: 2, md: 1 }}>
-                {dataContact.map((item) => (
-                  <Group key={item.link} wrap="nowrap">
-                    <ThemeIcon
-                      size={ICON_WRAPPER_SIZE + 8}
-                      color={'var(--mantine-color-body)'}
-                      c={'var(--mantine-color-pri-6)'}
-                    >
-                      <item.icon
-                        size={ICON_SIZE + 8}
-                        stroke={ICON_STROKE_WIDTH}
-                      />
-                    </ThemeIcon>
-
-                    <Stack gap={0}>
-                      <Text component="span" inherit fz={'sm'}>
-                        {item.title}
-                      </Text>
-
-                      <Anchor
-                        href={
-                          item.title == 'Working Hours' ? undefined : item.link
-                        }
-                        target={item.title == 'Address' ? '_blank' : undefined}
-                        inherit
-                        fw={500}
-                        c={'var(--mantine-color-body)'}
-                        underline="hover"
-                      >
-                        {item.label}
-                      </Anchor>
-                    </Stack>
-                  </Group>
-                ))}
-              </SimpleGrid>
-
-              <Flex align={'center'} gap={'md'}>
-                {dataSocials.map((social) => (
-                  <Anchor
-                    key={social.link}
-                    title={social.label}
-                    href={social.link}
-                  >
-                    <Center>
-                      <ThemeIcon
-                        size={ICON_WRAPPER_SIZE}
-                        variant="transparent"
-                        c={'var(--mantine-color-body)'}
-                      >
-                        <social.icon
-                          size={ICON_SIZE}
-                          stroke={ICON_STROKE_WIDTH}
-                        />
-                      </ThemeIcon>
-                    </Center>
-                  </Anchor>
-                ))}
-              </Flex>
+            <Stack gap={'xs'} c={'dimmed'} fz={'sm'}>
+              <Text inherit>Contact us directly for advertisement</Text>
+              <Text inherit>2492 Centennial NW, Acworth, GA, 30102</Text>
+              <Text inherit>
+                Call:{' '}
+                <Anchor
+                  inherit
+                  href={`tell:${appData.phones.marketing}`}
+                  underline="always"
+                >
+                  {appData.phones.marketing}
+                </Anchor>{' '}
+                (Toll-free)
+              </Text>
+              <Text inherit>
+                Email:{' '}
+                <Anchor
+                  inherit
+                  href={`mailto:${appData.emails.marketing}`}
+                  underline="always"
+                >
+                  {appData.emails.marketing}
+                </Anchor>
+              </Text>
+              <Text inherit>
+                Support: {appData.hours.days} ({appData.hours.times})
+              </Text>
             </Stack>
+          </Stack>
 
-            <Card
-              withBorder
-              shadow="xs"
-              p={{ base: 'xs', xs: 'xl' }}
-              bg={'var(--mantine-color-body)'}
-              mt={{ base: 'xl', md: 0 }}
-            >
-              <FormContact />
-            </Card>
-          </SimpleGrid>
-        </Card>
+          <Stack>
+            <Title order={2}>Contact Information</Title>
+
+            <Stack gap={'xs'} c={'dimmed'} fz={'sm'}>
+              <Text inherit>Get in touch with us to see how we can help</Text>
+              <Text inherit>750 Sing Sing Rd, Horseheads, NY, 14845</Text>
+              <Text inherit>
+                Call:{' '}
+                <Anchor
+                  inherit
+                  href={`tell:${appData.phones.main}`}
+                  underline="always"
+                >
+                  {appData.phones.main}
+                </Anchor>{' '}
+                (Toll-free)
+              </Text>
+              <Text inherit>
+                Email:{' '}
+                <Anchor
+                  inherit
+                  href={`mailto:${appData.emails.info}`}
+                  underline="always"
+                >
+                  {appData.emails.info}
+                </Anchor>
+              </Text>
+              <Text inherit>
+                Support: {appData.hours.days} ({appData.hours.times})
+              </Text>
+            </Stack>
+          </Stack>
+        </SimpleGrid>
+      </LayoutSection>
+
+      <LayoutSection id={'divider'} margined containerized={'sm'}>
+        <Divider color={'var(--mantine-color-default-border)'} />
+      </LayoutSection>
+
+      <LayoutSection id={'form'} margined containerized={'sm'}>
+        <Stack gap={'xl'}>
+          <Stack gap={'xs'}>
+            <Title order={2} ta={'start'}>
+              Drop Us A Line
+            </Title>
+
+            <Text ta={'start'} w={{ md: '80%', lg: '90%' }}>
+              Leave your email and we will get back to you within 24 hours.
+            </Text>
+          </Stack>
+
+          <FormContact />
+        </Stack>
       </LayoutSection>
     </LayoutPage>
   );
@@ -176,22 +156,22 @@ export const dataContact = [
 
 export const dataSocials = [
   {
-    icon: IconBrandFacebook,
+    image: images.icons.social.facebook,
     link: appData.socials.facebook.link,
     label: appData.socials.facebook.platform,
   },
   {
-    icon: IconBrandX,
+    image: images.icons.social.twitterx,
     link: appData.socials.twitter.link,
     label: appData.socials.twitter.platform,
   },
   {
-    icon: IconBrandInstagram,
+    image: images.icons.social.instagram,
     link: appData.socials.instagram.link,
     label: appData.socials.instagram.platform,
   },
   {
-    icon: IconBrandLinkedin,
+    image: images.icons.social.linkedin,
     link: appData.socials.linkedin.link,
     label: appData.socials.linkedin.platform,
   },
