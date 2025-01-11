@@ -17,33 +17,35 @@ export default function Theme({
     <SegmentedControl
       value={colorScheme}
       onChange={(v) => handleChange(v)}
-      data={[
-        {
-          label: (
-            <Group>
-              <IconSun size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            </Group>
-          ),
-          value: 'light',
-        },
-        {
-          label: (
-            <Group>
-              <IconMoon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            </Group>
-          ),
-          value: 'dark',
-        },
-        {
-          label: (
-            <Group>
-              <IconDeviceDesktop size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            </Group>
-          ),
-          value: 'auto',
-        },
-      ]}
+      data={options}
       {...restProps}
     />
   );
 }
+
+const options = [
+  {
+    label: (
+      <Group>
+        <IconSun size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+      </Group>
+    ),
+    value: 'light',
+  },
+  {
+    label: (
+      <Group>
+        <IconMoon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+      </Group>
+    ),
+    value: 'dark',
+  },
+  {
+    label: (
+      <Group>
+        <IconDeviceDesktop size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+      </Group>
+    ),
+    value: 'auto',
+  },
+];

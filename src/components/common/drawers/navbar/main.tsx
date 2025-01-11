@@ -4,10 +4,10 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { Burger, Button, Drawer, NavLink, Stack } from '@mantine/core';
+import { Burger, Button, Drawer, Group, NavLink, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { SignIn as WrapperSignIn } from '../../../wrapper/auth';
-
+import { SignIn as WrapperSignIn } from '@/components/wrapper/auth';
+import { SignUp as WrapperSignUp } from '@/components/wrapper/auth';
 import classes from './main.module.scss';
 
 import { typeMenuNavbar } from '@/types/components/menu';
@@ -117,11 +117,19 @@ export default function Main({
 
           <Stack gap={'xs'} px={'xs'}>
             {!session && (
-              <WrapperSignIn>
-                <Button size="xs" variant="light">
-                  Log In
-                </Button>
-              </WrapperSignIn>
+              <Group grow>
+                <WrapperSignIn>
+                  <Button fullWidth size="xs" variant="light">
+                    Log In
+                  </Button>
+                </WrapperSignIn>
+
+                <WrapperSignUp>
+                  <Button fullWidth size="xs">
+                    Sign Up
+                  </Button>
+                </WrapperSignUp>
+              </Group>
             )}
           </Stack>
         </Stack>

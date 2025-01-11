@@ -1,10 +1,15 @@
 'use client';
 
-import { Alert, Center, Text } from '@mantine/core';
+import {
+  Alert,
+  BackgroundImage,
+  Box,
+  Button,
+  Group,
+  Text,
+} from '@mantine/core';
 import React, { useState } from 'react';
 import WrapperTransition from '@/components/wrapper/transition';
-import { IconInfoCircle } from '@tabler/icons-react';
-import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
 
 import classes from './main.module.scss';
 
@@ -13,22 +18,40 @@ export default function Main() {
 
   return (
     <WrapperTransition mounted={mounted} transition={'fade-down'}>
-      <Alert
-        variant="filled"
-        withCloseButton
-        onClick={() => setMounted(false)}
-        icon={
-          <Center>
-            <IconInfoCircle size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-          </Center>
+      <BackgroundImage
+        src={
+          'https://cdn.pixabay.com/photo/2021/02/05/18/05/paper-5985445_1280.jpg  '
         }
-        classNames={classes}
+        pos={'relative'}
+        style={{ overflow: 'hidden' }}
       >
-        <Text component="span" inherit fw={'bold'}>
-          GeneriCon 2023
-        </Text>{' '}
-        | Join us in Denver from June 7 – 9 to see what&apos;s coming next
-      </Alert>
+        <Box
+          component="span"
+          pos={'absolute'}
+          top={0}
+          left={0}
+          w={'100%'}
+          h={'100%'}
+          bg={'rgba(0,0,0,0.25)'}
+        ></Box>
+
+        <Alert
+          variant="filled"
+          withCloseButton
+          onClick={() => setMounted(false)}
+          classNames={classes}
+          bg={'transparent'}
+          pos={'relative'}
+        >
+          <Group justify="center">
+            <Text inherit fw={500} ta={'center'}>
+              Unlimited download! Starting from just $15/m
+            </Text>
+
+            <Button size="compact-xs">Grab Now!</Button>
+          </Group>
+        </Alert>
+      </BackgroundImage>
     </WrapperTransition>
   );
 }

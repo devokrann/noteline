@@ -1,58 +1,56 @@
 import React from 'react';
-
-import { Anchor, Group, ThemeIcon } from '@mantine/core';
-
+import { Anchor, Divider, Group } from '@mantine/core';
 import LayoutSection from '@/components/layout/section';
-
-import classes from './main.module.scss';
-import { dataContact, dataSocials } from '@/app/(marketing)/contact/page';
-import {
-  ICON_SIZE,
-  ICON_STROKE_WIDTH,
-  ICON_WRAPPER_SIZE,
-} from '@/data/constants';
+import { dataSocials } from '@/app/(marketing)/contact/page';
+import ImageDefault from '@/components/common/images/default';
+import { links } from '@/data/links';
+import MenuTheme from '@/components/common/menus/theme';
 
 export default function Main() {
   return (
-    <LayoutSection
-      id="partial-header-main"
-      padded="sm"
-      className={classes.header}
-      visibleFrom="xs"
-    >
-      <Group justify="space-between">
-        <Group gap={'lg'}>
-          {dataContact.map((item) => (
-            <Group key={item.link} gap={6}>
-              <item.icon
-                size={ICON_SIZE}
-                stroke={ICON_STROKE_WIDTH}
-                style={{ marginTop: 2 }}
-              />
+    <>
+      <LayoutSection id="header-content" padded="sm" visibleFrom="xs">
+        <Group justify="space-between">
+          <Group gap={'lg'}>
+            {links.header.map((item) => (
               <Anchor
+                key={item.link}
                 href={item.link}
                 underline="hover"
                 inherit
-                fz={{ base: 'xs', lg: 'sm' }}
+                fz={{ base: 'xs', xl: 'sm' }}
               >
                 {item.label}
               </Anchor>
-            </Group>
-          ))}
-        </Group>
+            ))}
+          </Group>
 
-        <Group>
-          {dataSocials.map((social) => (
-            <Anchor key={social.link} title={social.label} href={social.link}>
-              <Group>
-                <ThemeIcon size={ICON_WRAPPER_SIZE} variant="default">
-                  <social.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-                </ThemeIcon>
-              </Group>
-            </Anchor>
-          ))}
+          <Group>
+            <MenuTheme />
+
+            <Group gap={'xs'}>
+              {dataSocials.map((social) => (
+                <Anchor
+                  key={social.link}
+                  title={social.label}
+                  href={social.link}
+                >
+                  <ImageDefault
+                    src={social.image}
+                    alt={social.label}
+                    height={{ base: 20 }}
+                    width={{ base: 20 }}
+                  />
+                </Anchor>
+              ))}
+            </Group>
+          </Group>
         </Group>
-      </Group>
-    </LayoutSection>
+      </LayoutSection>
+
+      <LayoutSection id="header-divider">
+        <Divider color="var(--mantine-color-default-border)" />
+      </LayoutSection>
+    </>
   );
 }

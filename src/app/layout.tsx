@@ -36,7 +36,6 @@ import ProviderStore from '@/components/providers/store';
 import { cookies } from 'next/headers';
 import AffixiCookies from '@/components/common/affixi/cookies';
 import AffixOffline from '@/components/common/affixi/offline';
-import AffixScheme from '@/components/common/affixi/scheme';
 
 const font = Open_Sans({ subsets: ['latin'] });
 
@@ -95,7 +94,6 @@ export default async function RootLayout({
             <Notifications limit={3} />
 
             <AffixOffline />
-            <AffixScheme />
             <AffixiCookies />
           </MantineProvider>
         </ProviderStore>
