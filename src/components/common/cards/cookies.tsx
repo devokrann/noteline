@@ -17,11 +17,10 @@ export default function Cookies({ close }: { close: () => void }) {
     <Card className={classes.card}>
       <Stack>
         <Text fz={'sm'}>
-          This website uses cookies to provide a seamless user experience.
-          Accepting our cookies is optional but recommended, as they are
-          delicious. See our{' '}
+          This website stores cookies on your computer. To find out more about
+          the cookies we use, see our{' '}
           <Anchor inherit component={Link} href="/legal/cookie-policy">
-            cookie policy
+            privacy policy
           </Anchor>
           .
         </Text>
