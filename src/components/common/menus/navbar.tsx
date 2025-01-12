@@ -69,7 +69,8 @@ export default function Navbar({
       trigger="click-hover"
       openDelay={50}
       closeDelay={50}
-      transitionProps={{ transition: 'fade-up'}}
+      transitionProps={{ transition: 'fade-up' }}
+      offset={{ mainAxis: 24 }}
       classNames={{
         dropdown: classes.dropdown,
         arrow: classes.arrow,
