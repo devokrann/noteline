@@ -1,0 +1,13 @@
+.controls {
+  display: none;
+  justify-content: end;
+  gap: var(--mantine-spacing-xs);
+
+  @include larger-than($mantine-breakpoint-xs) {
+    display: flex;
+  }
+}
+
+.control {
+  background-color: var(--mantine-color-white);
+}
