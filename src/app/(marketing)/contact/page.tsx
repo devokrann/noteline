@@ -6,10 +6,6 @@ import { Anchor, Divider, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 
 import {
   IconAt,
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandX,
   IconClockHour8,
   IconMapPin,
   IconPhone,
@@ -46,7 +42,7 @@ export default async function Contact() {
                 Call:{' '}
                 <Anchor
                   inherit
-                  href={`tell:${appData.phones.marketing}`}
+                  href={`tel:${appData.phones.marketing}`}
                   underline="always"
                 >
                   {appData.phones.marketing}
@@ -79,7 +75,7 @@ export default async function Contact() {
                 Call:{' '}
                 <Anchor
                   inherit
-                  href={`tell:${appData.phones.main}`}
+                  href={`tel:${appData.phones.main}`}
                   underline="always"
                 >
                   {appData.phones.main}
