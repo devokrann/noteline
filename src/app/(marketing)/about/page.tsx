@@ -49,8 +49,8 @@ export default async function About() {
         />
 
         <Grid grow>
-          {points.map((point) => (
-            <GridCol span={{ base: 12, xs: 6, md: 4 }} key={point.title}>
+          {points.map((point, index) => (
+            <GridCol span={{ base: 12, xs: 6, md: 4 }} key={index}>
               <Card
                 shadow="xs"
                 padding={'xl'}
@@ -112,9 +112,9 @@ export default async function About() {
         />
 
         <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>
-          {team.map((member) => (
+          {team.map((member, index) => (
             <Card
-              key={member.name}
+              key={index}
               padding={'xl'}
               shadow="xs"
               bg={'var(--mantine-color-pri-light)'}

@@ -1,37 +1,30 @@
 import React from 'react';
-
 import { Grid, GridCol } from '@mantine/core';
-
 import LayoutPage from '@/components/layout/page';
 import LayoutSection from '@/components/layout/section';
 import CardBlogMain from '@/components/common/cards/blog/main';
-import IntroPage from '@/components/layout/intro/page';
-
-import { typeParams } from '../../layout';
+import { typeParams } from '../layout';
 import { categoryGet } from '@/handlers/requests/database/category';
 import { CategoryRelations } from '@/types/models/category';
+import { extractUuidFromParam } from '@/utilities/helpers/string';
+import { redirect } from 'next/navigation';
 
 export default async function Category({ params }: { params: typeParams }) {
+  const categoryId = extractUuidFromParam(params['categoryTitle-categoryId']);
+
+  if (!categoryId) redirect('/not-found');
+
   const { category }: { category: CategoryRelations } = await categoryGet({
-    categoryId: params.categoryId,
+    categoryId,
   });
 
   return (
     <LayoutPage>
-      <IntroPage
-        props={{
-          path: `Categories`,
-          title: category.title,
-          desc: `Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit
-              phasellus mollis sit aliquam sit nullam.`,
-        }}
-      />
-
-      <LayoutSection id={'page-blog'} margined>
+      <LayoutSection id={'page-blog'} margined containerized={false}>
         <Grid gutter={'xl'}>
-          {category.posts.map((post) => (
-            <GridCol key={post.title} span={{ base: 12, sm: 6, md: 4, xl: 3 }}>
-              <CardBlogMain post={post} />
+          {category.posts.map((post, index) => (
+            <GridCol key={index} span={12}>
+              <CardBlogMain post={post} orientation="horizontal" />
             </GridCol>
           ))}
         </Grid>
