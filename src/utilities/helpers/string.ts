@@ -59,7 +59,7 @@ export const getEmailLocalPart = (email: string): string => {
   return atIndex !== -1 ? email.slice(0, atIndex) : email;
 };
 
-export function extractUuidFromParam(param: string): string | null {
+export const extractUuidFromParam = (param: string): string | null => {
   // Define the UUID regex pattern
   const uuidPattern =
     /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
@@ -69,4 +69,4 @@ export function extractUuidFromParam(param: string): string | null {
 
   // Return the UUID if found, otherwise null
   return match ? match[0] : null;
-}
+};

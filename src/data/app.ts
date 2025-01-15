@@ -33,6 +33,10 @@ export const socials = {
     platform: `LinkedIn`,
     link: '#linkedin',
   },
+  youtube: {
+    platform: `Youtube`,
+    link: '#youtube',
+  },
 };
 
 export const hours = {

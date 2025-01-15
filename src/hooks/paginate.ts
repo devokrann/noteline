@@ -11,13 +11,13 @@ const chunk = <T>(array: T[], size: number): T[][] => {
     : [];
 };
 
-export const usePaginate = <T>(list: T[], pageSize: number) => {
+export const usePaginate = <T>(params: { list: T[]; pageSize: number }) => {
   const [items, setItems] = useState<T[]>([]);
   const [activePage, setActivePage] = useState(1);
 
   const chunkedList = useMemo(
-    () => (list ? chunk(list, pageSize) : []),
-    [list, pageSize]
+    () => (params.list ? chunk(params.list, params.pageSize) : []),
+    [params.list, params.pageSize]
   );
 
   const pageRange = useMemo((): PageRange | null => {
@@ -25,18 +25,18 @@ export const usePaginate = <T>(list: T[], pageSize: number) => {
 
     const lastChunkLength = chunkedList[chunkedList.length - 1].length;
     const isLastChunk =
-      lastChunkLength === items.length && lastChunkLength !== pageSize;
+      lastChunkLength === items.length && lastChunkLength !== params.pageSize;
 
     return {
       from: isLastChunk
-        ? list.length - items.length + 1
-        : (activePage - 1) * pageSize + 1,
-      to: isLastChunk ? list.length : activePage * pageSize,
+        ? params.list.length - items.length + 1
+        : (activePage - 1) * params.pageSize + 1,
+      to: isLastChunk ? params.list.length : activePage * params.pageSize,
     };
-  }, [chunkedList, activePage, list, pageSize, items]);
+  }, [chunkedList, activePage, params.list, params.pageSize, items]);
 
   useEffect(() => {
-    if (!list) return;
+    if (!params.list) return;
 
     const currentPageItems = chunkedList[activePage - 1];
 
@@ -47,7 +47,7 @@ export const usePaginate = <T>(list: T[], pageSize: number) => {
     } else {
       setItems([]);
     }
-  }, [list, activePage, pageSize, chunkedList]);
+  }, [params.list, activePage, params.pageSize, chunkedList]);
 
   return {
     items,
