@@ -17,7 +17,18 @@ export default function Main({
     props.indexOf(breadcrumb) == props.length - 1;
 
   return (
-    <Breadcrumbs separator={<IconCircleFilled size={4} />}>
+    <Breadcrumbs
+      separator={
+        <IconCircleFilled
+          size={4}
+          color={
+            options?.bg
+              ? 'var(--mantine-color-white)'
+              : 'var(--mantine-color-text)'
+          }
+        />
+      }
+    >
       {props.map((item) => (
         <Anchor
           key={item.link}

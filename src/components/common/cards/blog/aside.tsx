@@ -1,25 +1,19 @@
 import React from 'react';
-
 import Link from 'next/link';
-
 import {
   Anchor,
   Grid,
   GridCol,
   Group,
-  NumberFormatter,
   Stack,
   Text,
   Title,
 } from '@mantine/core';
-
 import { PostRelations } from '@/types/models/post';
-
 import { linkify } from '@/utilities/formatters/string';
 import { getRegionalDate } from '@/utilities/formatters/date';
-import { IconCircleFilled, IconMessageCircle } from '@tabler/icons-react';
+import { IconCircleFilled } from '@tabler/icons-react';
 import ImageDefault from '@/components/common/images/default';
-import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
 
 export default function Aside({ post }: { post: PostRelations }) {
   const path = `/blog/${linkify(post.title)}-${post.id}`;
@@ -37,7 +31,7 @@ export default function Aside({ post }: { post: PostRelations }) {
           <ImageDefault
             src={post.image}
             alt={post.title}
-            height={80}
+            height={64}
             radius={'sm'}
             mode="grid"
           />
@@ -47,7 +41,7 @@ export default function Aside({ post }: { post: PostRelations }) {
       <GridCol span={8}>
         <Stack gap={'xs'}>
           <Stack gap={4}>
-            <Title order={3} fz={'md'} lineClamp={1}>
+            <Title order={3} fz={'sm'} lh={1.2} lineClamp={2}>
               <Anchor
                 component={Link}
                 underline="hover"
@@ -59,10 +53,6 @@ export default function Aside({ post }: { post: PostRelations }) {
                 {post.title}
               </Anchor>
             </Title>
-
-            <Text lineClamp={1} fz={'sm'}>
-              {post.excerpt}
-            </Text>
           </Stack>
 
           <Group gap={'xs'} fz={'xs'}>
@@ -78,24 +68,6 @@ export default function Aside({ post }: { post: PostRelations }) {
             >
               {post.category?.title}
             </Anchor>
-
-            {post._count.comments && (
-              <>
-                <IconCircleFilled size={4} />
-
-                <Group gap={4}>
-                  <IconMessageCircle
-                    size={ICON_SIZE - 4}
-                    stroke={ICON_STROKE_WIDTH}
-                  />
-
-                  <NumberFormatter
-                    thousandSeparator
-                    value={post._count.comments}
-                  />
-                </Group>
-              </>
-            )}
           </Group>
         </Stack>
       </GridCol>

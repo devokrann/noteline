@@ -9,5 +9,13 @@
 }
 
 .control {
-  background-color: var(--mantine-color-white);
+  background-color: light-dark(
+    var(--mantine-color-priLight-7),
+    var(--mantine-color-priDark-3)
+  );
+
+  color: light-dark(
+    var(--mantine-color-priDark-3),
+    var(--mantine-color-priLight-7)
+  );
 }

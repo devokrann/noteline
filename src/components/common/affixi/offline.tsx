@@ -26,11 +26,11 @@ export default function Offline({
       <WrapperTransition
         transition={'slide-right'}
         mounted={!networkStatus.online}
-        exitDelay={1000}
+        exitDelay={3000}
       >
         <Alert
           variant="light"
-          color={networkStatus.online ? 'green' : 'red'}
+          color={networkStatus.online ? 'green.6' : 'red.6'}
           title={networkStatus.online ? 'Online' : 'Offline'}
           p={'xs'}
           style={{

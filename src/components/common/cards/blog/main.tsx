@@ -1,124 +1,115 @@
 import React from 'react';
-
 import Link from 'next/link';
-
 import {
   Anchor,
-  Badge,
   Card,
-  CardSection,
+  Grid,
+  GridCol,
   Group,
-  NumberFormatter,
+  Overlay,
   Stack,
   Text,
   Title,
 } from '@mantine/core';
-
-import classes from './main.module.scss';
-
 import { PostRelations } from '@/types/models/post';
-
 import { linkify } from '@/utilities/formatters/string';
-import { getRegionalDate } from '@/utilities/formatters/date';
-import { IconCircleFilled, IconMessageCircle } from '@tabler/icons-react';
 import ImageDefault from '@/components/common/images/default';
-import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
+import BadgePost from '../../badges/post';
+import FooterCardPost from '@/components/layout/footers/card/post';
 
-export default function Main({ post }: { post: PostRelations }) {
-  const path = `/blog/${linkify(post.title)}-${post.id}`;
+export default function Main({
+  post,
+  minimal,
+  withoutExcerpt,
+  orientation = 'vertical',
+}: {
+  post: PostRelations;
+  minimal?: boolean;
+  withoutExcerpt?: boolean;
+  orientation?: 'vertical' | 'horizontal';
+}) {
+  const badge = (
+    <Anchor
+      href={`/blog/categories/${linkify(post.category?.title || '')}-${post.category?.id}`}
+    >
+      <Group>
+        <BadgePost props={post.category} />
+      </Group>
+    </Anchor>
+  );
 
   return (
-    <Card className={classes.card} bg={'transparent'}>
-      <Stack gap={'lg'}>
-        <CardSection
-          style={{
-            borderRadius: 'var(--mantine-radius-sm)',
-            overflow: 'hidden',
-          }}
+    <Card
+      bg={'transparent'}
+      padding={0}
+      pb={orientation == 'vertical' ? 'md' : undefined}
+    >
+      <Grid>
+        <GridCol
+          span={{ base: 12, sm: orientation == 'horizontal' ? 5 : undefined }}
         >
-          <Anchor
-            component={Link}
-            underline="hover"
-            inherit
-            href={path}
-            title={post.title}
+          <Group
             pos={'relative'}
+            h={220}
+            style={{
+              borderRadius: 'var(--mantine-radius-md)',
+              overflow: 'hidden',
+            }}
           >
-            <ImageDefault
-              src={post.image}
-              alt={post.title}
-              height={200}
-              mode="grid"
-            />
+            <Overlay style={{ zIndex: 0 }}>
+              <ImageDefault
+                src={post.image}
+                alt={post.title}
+                height={{ base: 220 }}
+                mode="wide"
+              />
 
-            <Group gap={'xs'} align="start" className={classes.overlay}>
-              {post.tags.map((t) => (
-                <Badge key={t.id} color="white" c={'black'} radius={'sm'}>
-                  {t.title}
-                </Badge>
-              ))}
-            </Group>
-          </Anchor>
-        </CardSection>
+              <Overlay
+                color="#000"
+                backgroundOpacity={0.2}
+                style={{ zIndex: 0 }}
+              />
+            </Overlay>
 
-        <CardSection>
+            <Stack
+              pos={'relative'}
+              p={'md'}
+              h={'100%'}
+              justify="end"
+              display={orientation == 'horizontal' ? 'none' : undefined}
+            >
+              {post.category?.title && badge}
+            </Stack>
+          </Group>
+        </GridCol>
+
+        <GridCol
+          span={{ base: 12, sm: orientation == 'horizontal' ? 7 : undefined }}
+        >
           <Stack gap={'lg'} justify="space-between" h={'100%'}>
             <Stack>
-              <Title
-                order={3}
-                fz={{ base: 'xl' }}
-                className={classes.title}
-                lineClamp={1}
-              >
+              {orientation == 'horizontal' && <Group>{badge}</Group>}
+
+              <Title order={3} fz={{ base: 'xl' }} lineClamp={1}>
                 <Anchor
                   component={Link}
                   underline="hover"
                   inherit
-                  href={path}
+                  href={`/blog/${linkify(post.title)}-${post.id}`}
                   c={'inherit'}
                   title={post.title}
                 >
                   {post.title}
                 </Anchor>
               </Title>
-              <Text className={classes.desc} lineClamp={3}>
-                {post.excerpt}
-              </Text>
+
+              {!withoutExcerpt && <Text lineClamp={3}>{post.excerpt}</Text>}
             </Stack>
 
-            <Group justify="space-between" fz={'sm'}>
-              <Group gap={'xs'}>
-                <Text inherit>{getRegionalDate(post.createdAt).date}</Text>
-
-                <IconCircleFilled size={4} />
-
-                <Anchor
-                  component={Link}
-                  href={`/blog/categories/${post.category?.id}`}
-                  underline="never"
-                  inherit
-                >
-                  {post.category?.title}
-                </Anchor>
-              </Group>
-
-              {post._count.comments && (
-                <Group gap={4}>
-                  <IconMessageCircle
-                    size={ICON_SIZE - 4}
-                    stroke={ICON_STROKE_WIDTH}
-                  />
-
-                  <NumberFormatter
-                    thousandSeparator
-                    value={post._count.comments}
-                  />
-                </Group>
-              )}
-            </Group>
+            <FooterCardPost props={post} options={{ minimal }} />
           </Stack>
-        </CardSection>
-      </Stack>
+        </GridCol>
+      </Grid>
     </Card>
   );
 }

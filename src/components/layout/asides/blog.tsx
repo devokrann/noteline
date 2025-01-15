@@ -2,133 +2,127 @@ import React from 'react';
 
 import LayoutSection from '@/components/layout/section';
 import CardBlogAside from '@/components/common/cards/blog/aside';
-import { postsGet } from '@/handlers/requests/database/post';
 import {
   Anchor,
-  Badge,
-  Divider,
-  Grid,
-  GridCol,
+  Card,
   Group,
-  NumberFormatter,
+  SimpleGrid,
   Stack,
   Text,
   Title,
 } from '@mantine/core';
-import Link from 'next/link';
 import { PostRelations } from '@/types/models/post';
 import { CategoryRelations } from '@/types/models/category';
-import { TagRelations } from '@/types/models/tag';
-import { categoriesGet } from '@/handlers/requests/database/category';
-import { tagsGet } from '@/handlers/requests/database/tag';
-import { typeParams } from '@/app/(marketing)/blog/layout';
+import CardCategory from '@/components/common/cards/category';
+import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
+import {
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconBrandYoutube,
+} from '@tabler/icons-react';
+import appData from '@/data/app';
+import { shuffleArray } from '@/utilities/helpers/array';
 
-export default async function Blog({ params }: { params: typeParams }) {
-  const [postId] = params['postTitle-postId'].split('-');
-
-  const { posts }: { posts: PostRelations[] } = await postsGet();
-  const { tags }: { tags: TagRelations[] } = await tagsGet();
-  const { categories }: { categories: CategoryRelations[] } =
-    await categoriesGet();
-
-  const postsFiltered = posts.filter((p) => p.id != postId);
-
+export default async function Blog({
+  posts,
+  categories,
+  margined,
+}: {
+  posts: PostRelations[];
+  categories: CategoryRelations[];
+  margined?: boolean;
+}) {
   return (
     <LayoutSection
       id={'partial-aside-blog'}
-      padded
       containerized={false}
-      pos={'sticky'}
-      top={32}
+      margined={margined}
     >
       <Stack gap={'xl'}>
+        <Group gap={4} grow>
+          {socialStats.map((stat, index) => (
+            <Anchor key={index} href={stat.link}>
+              <Card bg={stat.bg} miw={72} c={'white'} shadow="xs">
+                <Stack align="center" gap={4}>
+                  <stat.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+
+                  <div>
+                    <Text ta={'center'} fz={'sm'} fw={'bold'}>
+                      {stat.number}
+                    </Text>
+
+                    <Text ta={'center'} fz={'xs'}>
+                      {stat.label}
+                    </Text>
+                  </div>
+                </Stack>
+              </Card>
+            </Anchor>
+          ))}
+        </Group>
+
         <Stack>
-          <Title order={2} fz={'xl'}>
-            Categories
+          <Title order={2} fz={24}>
+            Trending topics
           </Title>
 
-          <Stack gap={'xs'}>
-            {categories.map((c) => (
-              <Stack key={c.id}>
-                {categories.indexOf(c) != 0 && <Divider />}
+          <Stack>
+            <SimpleGrid cols={{ base: 1, xs: 2, sm: 3, md: 1 }}>
+              {shuffleArray(categories).map(
+                (cat, index) =>
+                  categories.indexOf(cat) < 5 && (
+                    <CardCategory key={index} props={cat} />
+                  )
+              )}
+            </SimpleGrid>
 
-                <Anchor
-                  component={Link}
-                  href={`/blog/categories/${c.id}`}
-                  underline="never"
-                  c={'gray'}
-                >
-                  <Group justify="space-between" fz={'sm'}>
-                    <Text inherit>{c.title}</Text>
-
-                    <Text inherit ta={'end'}>
-                      <NumberFormatter
-                        value={c._count.posts}
-                        thousandSeparator
-                      />
-                    </Text>
-                  </Group>
-                </Anchor>
-              </Stack>
-            ))}
+            <Group justify="center">
+              <Anchor href="#" underline="always" fw={'bold'} fz={'sm'}>
+                View all categories
+              </Anchor>
+            </Group>
           </Stack>
         </Stack>
 
         <Stack>
-          <Title order={2} fz={'xl'}>
+          <Title order={2} fz={24}>
             Recent Posts
           </Title>
 
-          <Grid>
-            {postsFiltered.map(
-              (post) =>
-                postsFiltered.indexOf(post) < 3 && (
-                  <GridCol key={post.id} span={12}>
-                    <Stack>
-                      {postsFiltered.indexOf(post) != 0 && <Divider />}
-                      <CardBlogAside post={post} />
-                    </Stack>
-                  </GridCol>
+          <SimpleGrid cols={{ base: 1, sm: 2, md: 1 }}>
+            {posts.map(
+              (post, index) =>
+                posts.indexOf(post) < 4 && (
+                  <CardBlogAside key={index} post={post} />
                 )
             )}
-          </Grid>
-        </Stack>
-
-        <Stack>
-          <Title order={2} fz={'xl'}>
-            Tags
-          </Title>
-
-          <Group gap={'xs'}>
-            {tags.map((t) => (
-              <Anchor
-                key={t.id}
-                component={Link}
-                href={`/blog/tags/${t.id}`}
-                underline="never"
-              >
-                <Badge
-                  style={{ cursor: 'inherit' }}
-                  radius={'sm'}
-                  tt={'capitalize'}
-                  rightSection={
-                    <Text component="span" inherit>
-                      (
-                      <NumberFormatter
-                        value={t._count.posts}
-                        thousandSeparator
-                      />
-                      )
-                    </Text>
-                  }
-                >
-                  {t.title}
-                </Badge>
-              </Anchor>
-            ))}
-          </Group>
+          </SimpleGrid>
         </Stack>
       </Stack>
     </LayoutSection>
   );
 }
+
+const socialStats = [
+  {
+    bg: '#5d82d1',
+    link: appData.socials.facebook.link,
+    icon: IconBrandFacebook,
+    number: '1.5K',
+    label: 'Fans',
+  },
+  {
+    bg: 'radial-gradient(circle at 20% 130%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)',
+    link: appData.socials.instagram.link,
+    icon: IconBrandInstagram,
+    number: '1.8M',
+    label: 'Followers',
+  },
+  {
+    bg: '#e60000',
+    link: appData.socials.youtube.link,
+    icon: IconBrandYoutube,
+    number: '22K',
+    label: 'Subs',
+  },
+];

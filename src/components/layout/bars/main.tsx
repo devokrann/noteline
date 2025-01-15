@@ -44,7 +44,12 @@ export default function Main() {
           pos={'relative'}
         >
           <Group justify="center">
-            <Text inherit fw={500} ta={'center'}>
+            <Text
+              inherit
+              fw={500}
+              ta={'center'}
+              c={'var(--mantine-color-priDark-3)'}
+            >
               Unlimited download! Starting from just $15/m
             </Text>
 

@@ -1,0 +1,14 @@
+.card {
+  position: relative;
+
+  @include hover {
+    .image {
+      transform: scale(1.15);
+    }
+  }
+}
+
+.image {
+  transition: 1s all ease;
+  transform: scale(1.05);
+}

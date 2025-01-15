@@ -92,7 +92,6 @@ export default function Main({
       top={options?.absolute ? 0 : undefined}
       right={options?.absolute ? 0 : undefined}
       style={{ zIndex: 1 }}
-      padded={'sm'}
     >
       <Grid align="center" gutter={0}>
         <GridCol span={{ base: 4, md: 2 }}>

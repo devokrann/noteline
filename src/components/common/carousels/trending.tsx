@@ -6,18 +6,34 @@ import { Badge, Card, Group, Grid, GridCol, Anchor } from '@mantine/core';
 import classes from './trending.module.scss';
 import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
+import { linkify } from '@/utilities/formatters/string';
+import { PostRelations } from '@/types/models/post';
 
-export default function Trending() {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+export default function Trending({ posts }: { posts: PostRelations[] }) {
+  const autoplay = useRef(Autoplay({ delay: 4000 }));
+
+  const slides = posts.map((post, index) => (
+    <CarouselSlide key={index}>
+      <Anchor
+        inherit
+        href={`#${linkify(post.title)}`}
+        underline="hover"
+        fz={'sm'}
+        c={'var(--mantine-color-text)'}
+      >
+        {post.title}
+      </Anchor>
+    </CarouselSlide>
+  ));
 
   return (
-    <Card bg={'var(--mantine-color-blue-light)'} shadow="xs" padding={'xs'}>
+    <Card bg={'var(--mantine-color-pri-light)'} shadow="xs" padding={'xs'}>
       <Grid columns={20} align="center">
         <GridCol span={{ base: 20, md: 2.5, lg: 2 }}>
           <Group>
             <Badge
               variant="filled"
-              color="blue"
+              color="blue.6"
               radius={'sm'}
               size="lg"
               tt={'capitalize'}
@@ -29,7 +45,6 @@ export default function Trending() {
 
         <GridCol span={{ base: 20, md: 17.5, lg: 18 }}>
           <Carousel
-            withIndicators
             classNames={classes}
             controlSize={24}
             loop
@@ -44,74 +59,3 @@ export default function Trending() {
     </Card>
   );
 }
-
-const trendingPosts = [
-  {
-    title:
-      'How the 10 worst business fails of all time could have been prevented',
-    link: '#',
-  },
-  {
-    title:
-      "The most common business debate isn't as black and white as you might think",
-    link: '#',
-  },
-  {
-    title: 'Lifestyle Ten tell-tale signs you need to get a new startup.',
-    link: '#',
-  },
-  {
-    title: 'Business Five intermediate guide to business',
-    link: '#',
-  },
-  {
-    title:
-      'How the 10 worst business fails of all time could have been prevented',
-    link: '#',
-  },
-  {
-    title:
-      "The most common business debate isn't as black and white as you might think",
-    link: '#',
-  },
-  {
-    title: 'Lifestyle Ten tell-tale signs you need to get a new startup.',
-    link: '#',
-  },
-  {
-    title: 'Business Five intermediate guide to business',
-    link: '#',
-  },
-  {
-    title:
-      'How the 10 worst business fails of all time could have been prevented',
-    link: '#',
-  },
-  {
-    title:
-      "The most common business debate isn't as black and white as you might think",
-    link: '#',
-  },
-  {
-    title: 'Lifestyle Ten tell-tale signs you need to get a new startup.',
-    link: '#',
-  },
-  {
-    title: 'Business Five intermediate guide to business',
-    link: '#',
-  },
-];
-
-const slides = trendingPosts.map((post) => (
-  <CarouselSlide key={post.title}>
-    <Anchor
-      inherit
-      href={post.link}
-      underline="hover"
-      fz={'sm'}
-      c={'var(--mantine-color-text)'}
-    >
-      {post.title}
-    </Anchor>
-  </CarouselSlide>
-));

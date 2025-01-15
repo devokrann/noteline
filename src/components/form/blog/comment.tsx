@@ -51,7 +51,7 @@ export default function Comment({ postId }: { postId: string }) {
             placeholder="Write your comment here..."
             autosize
             minRows={3}
-            maxRows={5}
+            maxRows={30}
             resize="vertical"
             {...form.getInputProps('content')}
           />

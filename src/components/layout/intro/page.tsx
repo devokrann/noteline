@@ -5,9 +5,9 @@ import LayoutSection from '../section';
 import { usePathname } from 'next/navigation';
 import {
   BackgroundImage,
-  Box,
   Container,
   Group,
+  Overlay,
   Stack,
   Text,
   Title,
@@ -17,7 +17,11 @@ import { crumbify } from '@/utilities/formatters/string';
 import { SECTION_SPACING } from '@/data/constants';
 
 type Props = {
-  props: { path?: string | React.ReactNode; title: string; desc?: string };
+  props?: {
+    path?: string | React.ReactNode;
+    title?: string;
+    desc?: string | React.ReactNode;
+  };
   options?: {
     spacing?: 'margin' | 'padding';
     bgImage?: string;
@@ -45,31 +49,24 @@ export default function Page({ props, options }: Props) {
         style={{ overflow: 'hidden' }}
       >
         {options?.bgImage && (
-          <Box
-            component="span"
-            pos={'absolute'}
-            top={0}
-            left={0}
-            w={'100%'}
-            h={'100%'}
-            bg={'rgba(0,0,0,0.25)'}
-          ></Box>
+          <Overlay color="#000" backgroundOpacity={0.6} style={{ zIndex: 0 }} />
         )}
 
         <Stack pos={'relative'}>
-          {props.path && typeof props.path == 'string' ? (
-            <Text
-              fw={'bold'}
-              ta={'center'}
-              c={'pri.6'}
-              tt={'uppercase'}
-              fz={'sm'}
-            >
-              {props.path ? props.path : segments[segments.length - 1].label}
-            </Text>
-          ) : (
-            props.path
-          )}
+          {props?.path &&
+            (typeof props.path == 'string' ? (
+              <Text
+                fw={'bold'}
+                ta={'center'}
+                c={'pri.6'}
+                tt={'uppercase'}
+                fz={'sm'}
+              >
+                {props.path ? props.path : segments[segments.length - 1].label}
+              </Text>
+            ) : (
+              <Group justify="center">{props.path}</Group>
+            ))}
 
           <Container size={'sm'}>
             <Stack>
@@ -79,11 +76,11 @@ export default function Page({ props, options }: Props) {
                 fz={48}
                 c={options?.bgImage ? 'white' : undefined}
               >
-                {props.title}
+                {props?.title || segments[segments.length - 1].label}
               </Title>
 
               {!options?.withoutCumbs && (
-                <Group justify={'center'}>
+                <Group justify={'center'} pb={'xs'}>
                   <BreadcrumbMain
                     props={segments}
                     options={{ bg: options?.bgImage ? true : false }}
@@ -91,11 +88,14 @@ export default function Page({ props, options }: Props) {
                 </Group>
               )}
 
-              {props.desc && (
-                <Text ta={'center'} fz={'xl'}>
-                  {props.desc}
-                </Text>
-              )}
+              {props?.desc &&
+                (typeof props.path == 'string' ? (
+                  <Text ta={'center'} fz={'xl'}>
+                    {props.desc}
+                  </Text>
+                ) : (
+                  <Group justify="center">{props.desc}</Group>
+                ))}
             </Stack>
           </Container>
         </Stack>

@@ -1,0 +1,21 @@
+.root {
+  position: relative;
+
+  &:hover {
+    .controls {
+      opacity: 1;
+    }
+  }
+}
+
+.controls {
+  position: absolute;
+  top: var(--mantine-spacing-sm);
+  transition: 0.25s all ease;
+  opacity: 0;
+}
+
+.control {
+  background-color: var(--mantine-color-priLight-7);
+  color: var(--mantine-color-priDark-3);
+}
