@@ -9,7 +9,6 @@ export async function GET() {
       include: {
         _count: { select: { comments: true } },
 
-        category: true,
         tags: true,
         profile: true,
       },

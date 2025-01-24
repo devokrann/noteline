@@ -18,7 +18,6 @@ export const generateMetadata = async ({
   return {
     title: post?.title,
     description: post?.excerpt,
-    category: post?.category?.title,
   };
 };
 

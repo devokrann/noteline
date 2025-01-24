@@ -13,7 +13,6 @@ import { extractUuidFromParam } from '@/utilities/helpers/string';
 import { redirect } from 'next/navigation';
 import BadgePost from '@/components/common/badges/post';
 import { linkify } from '@/utilities/formatters/string';
-import FooterCardPost from '@/components/layout/footers/card/post';
 import BlogContent from '@/components/partial/blog-content';
 
 export default async function Post({ params }: { params: typeParams }) {
@@ -23,23 +22,15 @@ export default async function Post({ params }: { params: typeParams }) {
 
   const { post }: { post: PostRelations } = await postGet({
     postId: postId,
-    options: { cache: 'no-store' },
   });
 
   return (
     <LayoutPage>
       <IntroPage
         props={{
-          path: (
-            <Anchor
-              component={Link}
-              href={`/blog/categories/${linkify(post.category?.title || '')}-${post.category?.id}`}
-            >
-              <BadgePost props={post.category} />
-            </Anchor>
-          ),
+          path: 'category (obsolete)',
           title: post.title,
-          desc: <FooterCardPost props={post} options={{ withBgImage: true }} />,
+          // desc: <FooterCardPost props={post} options={{ withBgImage: true }} />,
         }}
         options={{ bgImage: post.image, withoutCumbs: true }}
       />
