@@ -44,17 +44,21 @@ model Profile {
   linkedin  String?
   twitter   String?
   bio       String?
+  followers Int     @default(0)
+  following Int     @default(0)
   phone     String?
   role      Role    @default(USER)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  addresses Address[]
-  posts     Post[]
-  comments  Comment[]
-  replies   Reply[]
+  addresses  Address[]
+  posts      Post[]
+  comments   Comment[]
+  replies    Reply[]
+  categories Category[]
 
+  @@unique([userName])
   @@map("profiles")
 }
 
@@ -65,12 +69,12 @@ model Post {
   excerpt       String
   content       String
   allowComments Boolean @default(true) @map(name: "allow_comments")
-  viewCount     Int     @default(0) @map(name: "view_count")
+  views         Int     @default(0) @map(name: "view_count")
+  likes         Int     @default(0)
 
-  profile    Profile?  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId  String?   @map("profile_id")
-  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  categoryId String?   @map("category_id")
+  profile    Profile?   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId  String?    @map("profile_id")
+  categories Category[]
   tags       Tag[]
   comments   Comment[]
 
@@ -83,17 +87,19 @@ model Post {
 }
 
 model Category {
-  id    String  @id @default(uuid())
-  title String
-  image String?
+  id      String  @id @default(uuid())
+  title   String
+  private Boolean @default(false)
 
-  posts Post[]
+  posts     Post[]
+  profile   Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String?  @map("profile_id")
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   status    Status   @default(ACTIVE)
 
-  @@unique([title])
+  @@unique([title, profileId])
   @@map(name: "categories")
 }
 
