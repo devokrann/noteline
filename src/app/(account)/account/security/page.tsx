@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 import React from 'react';
 
 import { Anchor, Stack, Text, Title } from '@mantine/core';
@@ -9,8 +7,12 @@ import LayoutSection from '@/components/layout/section';
 import ModalDeleteAccount from '@/components/common/modals/delete/account';
 
 import { Metadata } from 'next';
+import { REVALIDATE } from '@/data/constants';
 
 export const metadata: Metadata = { title: 'Security' };
+
+export const dynamic = 'force-dynamic';
+export const revalidate = REVALIDATE.WEEK;
 
 export default async function Security() {
   return (
