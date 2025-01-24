@@ -13,7 +13,28 @@ export type ProfileGet = Profile;
 export type ProfileRelations = Prisma.ProfileGetPayload<{
   include: {
     addresses: true;
-    posts: true;
+    categories: {
+      include: {
+        _count: { select: { posts: true } };
+
+        profile: true;
+
+        posts: {
+          include: {
+            _count: { select: { comments: true } };
+
+            tags: true;
+          };
+        };
+      };
+    };
+    posts: {
+      include: {
+        _count: { select: { comments: true } };
+
+        tags: true;
+      };
+    };
     comments: true;
     replies: true;
   };

@@ -18,7 +18,6 @@ export type TagRelations = Prisma.TagGetPayload<{
       include: {
         _count: { select: { comments: true } };
 
-        category: true;
         tags: true;
         profile: true;
         comments: {

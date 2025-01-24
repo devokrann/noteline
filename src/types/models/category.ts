@@ -14,18 +14,19 @@ export type CategoryRelations = Prisma.CategoryGetPayload<{
   include: {
     _count: { select: { posts: true } };
 
+    profile: true;
+
     posts: {
       include: {
         _count: { select: { comments: true } };
 
-        category: true;
         profile: true;
         tags: true;
+
         comments: {
           include: {
             _count: { select: { replies: true } };
 
-            profile: true;
             replies: {
               include: {
                 profile: true;
