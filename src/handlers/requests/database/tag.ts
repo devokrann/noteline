@@ -28,7 +28,6 @@ export const tagGet = async (slug: { tagId: string }) => {
       method: EnumRequest.GET,
       credentials: 'include',
       headers: HEADERS.WITHOUT_BODY,
-      cache: 'no-store',
     });
 
     const response = await fetch(request);

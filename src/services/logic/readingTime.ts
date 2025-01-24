@@ -1,4 +1,6 @@
-export const estimateReadTime = (text: string): number => {
+export const estimateReadTime = (
+  text: string
+): { words: number; time: number } => {
   // Remove extra whitespace and split into words
   const cleanText = text.trim();
   const words = cleanText.split(/\s+/).filter((word) => word.length > 0);
@@ -21,5 +23,8 @@ export const estimateReadTime = (text: string): number => {
   const roundedTime = Math.ceil(readTimeMinutes * 2) / 2;
 
   // Return at least 1 minute for very short texts
-  return Math.max(1, roundedTime);
+  return {
+    words: wordCount,
+    time: Math.max(1, roundedTime),
+  };
 };

@@ -1,9 +1,9 @@
 import { Request as EnumRequest } from '@/enums/request';
 import { API_URL, HEADERS } from '@/data/constants';
 
-const baseRequestUrl = `${API_URL}/categories`;
+const baseRequestUrl = `${API_URL}/profiles`;
 
-export const categoriesGet = async () => {
+export const profilesGet = async () => {
   try {
     const request = new Request(baseRequestUrl, {
       method: EnumRequest.GET,
@@ -17,14 +17,14 @@ export const categoriesGet = async () => {
 
     return result;
   } catch (error) {
-    console.error('---> handler error - (get categories):', error);
+    console.error('---> handler error - (get profiles):', error);
     throw error;
   }
 };
 
-export const categoryGet = async (slug: { categoryId: string }) => {
+export const profileGet = async (slug: { userName: string }) => {
   try {
-    const request = new Request(`${baseRequestUrl}/${slug.categoryId}`, {
+    const request = new Request(`${baseRequestUrl}/${slug.userName}`, {
       method: EnumRequest.GET,
       credentials: 'include',
       headers: HEADERS.WITHOUT_BODY,
@@ -36,7 +36,7 @@ export const categoryGet = async (slug: { categoryId: string }) => {
 
     return result;
   } catch (error) {
-    console.error('---> handler error - (get category):', error);
+    console.error('---> handler error - (get profile):', error);
     throw error;
   }
 };

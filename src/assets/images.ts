@@ -30,4 +30,8 @@ export const images = {
       google: '/icons/store/google-play.svg',
     },
   },
+
+  backgrounds: {
+    home: '/images/backgrounds/image-1.webp',
+  },
 };

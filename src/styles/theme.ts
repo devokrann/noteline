@@ -5,10 +5,12 @@ import {
   Card,
   Container,
   createTheme,
+  Divider,
   Notification,
   PasswordInput,
   Textarea,
   TextInput,
+  Title,
   virtualColor,
 } from '@mantine/core';
 
@@ -68,11 +70,24 @@ const appTheme = createTheme({
     deg: 45,
   },
 
+  fontSizes: {
+    xxs: '10px',
+    xs: '12px',
+    sm: '14px',
+    md: '16px',
+    lg: '18px',
+    xl: '20px',
+  },
+
   headings: { fontFamily: 'Lora, sans-serif' },
 
   cursorType: 'pointer',
 
   components: {
+    Title: Title.extend({
+      defaultProps: { c: 'var(--mantine-color-black)' },
+    }),
+
     Anchor: Anchor.extend({
       defaultProps: { underline: 'never' },
       classNames: classesAnchor,
@@ -97,19 +112,25 @@ const appTheme = createTheme({
 
     TextInput: TextInput.extend({
       defaultProps: {
-        // variant: 'filled',
+        variant: 'filled',
       },
     }),
 
     Textarea: Textarea.extend({
       defaultProps: {
-        // variant: 'filled',
+        variant: 'filled',
       },
     }),
 
     PasswordInput: PasswordInput.extend({
       defaultProps: {
-        // variant: 'filled',
+        variant: 'filled',
+      },
+    }),
+
+    Divider: Divider.extend({
+      defaultProps: {
+        color: 'var(--mantine-color-pri-light)',
       },
     }),
 
