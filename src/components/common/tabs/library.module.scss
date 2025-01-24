@@ -1,0 +1,16 @@
+.tab {
+  padding: var(--mantine-spacing-md) 0px;
+  font-weight: 500;
+
+  @include hover {
+    background-color: transparent;
+  }
+}
+
+.tabLabel {
+  font-size: var(--mantine-font-size-xs);
+}
+
+.list {
+  gap: var(--mantine-spacing-lg);
+}

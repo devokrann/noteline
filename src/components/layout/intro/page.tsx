@@ -89,7 +89,7 @@ export default function Page({ props, options }: Props) {
               )}
 
               {props?.desc &&
-                (typeof props.path == 'string' ? (
+                (typeof props.desc == 'string' ? (
                   <Text ta={'center'} fz={'xl'}>
                     {props.desc}
                   </Text>

@@ -1,76 +1,58 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  Anchor,
-  Grid,
-  GridCol,
-  Group,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Anchor, Avatar, Card, Group, Stack, Text, Title } from '@mantine/core';
 import { PostRelations } from '@/types/models/post';
 import { linkify } from '@/utilities/formatters/string';
 import { getRegionalDate } from '@/utilities/formatters/date';
-import { IconCircleFilled } from '@tabler/icons-react';
-import ImageDefault from '@/components/common/images/default';
+import { getAppropriateDuration } from '@/utilities/helpers/time';
+import HovercardAuthor from '../../hovercard/author';
+import { ICON_WRAPPER_SIZE } from '@/data/constants';
 
 export default function Aside({ post }: { post: PostRelations }) {
   const path = `/blog/${linkify(post.title)}-${post.id}`;
+  const duration = getAppropriateDuration(getRegionalDate(post.createdAt).date);
 
   return (
-    <Grid>
-      <GridCol span={4}>
+    <Card padding={0} bg={'transparent'}>
+      <Stack gap={'xs'} align="start">
         <Anchor
           component={Link}
-          underline="hover"
           inherit
-          href={path}
-          title={post.title}
+          href={`/${post.profile?.userName}`}
+          underline="hover"
         >
-          <ImageDefault
-            src={post.image}
-            alt={post.title}
-            height={64}
-            radius={'sm'}
-            mode="grid"
-          />
+          <HovercardAuthor props={post.profile}>
+            <Group gap={6}>
+              <Avatar
+                src={post.profile?.avatar}
+                size={ICON_WRAPPER_SIZE / 1.5}
+              />
+
+              <Text fz={'xxs'} c={'var(--mantine-color-text)'}>
+                {`${post.profile?.firstName || ''} ${post.profile?.lastName || ''}`.trim() ||
+                  post.profile?.userName}
+              </Text>
+            </Group>
+          </HovercardAuthor>
         </Anchor>
-      </GridCol>
 
-      <GridCol span={8}>
-        <Stack gap={'xs'}>
-          <Stack gap={4}>
-            <Title order={3} fz={'sm'} lh={1.2} lineClamp={2}>
-              <Anchor
-                component={Link}
-                underline="hover"
-                inherit
-                href={path}
-                c={'inherit'}
-                title={post.title}
-              >
-                {post.title}
-              </Anchor>
-            </Title>
-          </Stack>
+        <Title order={3} fz={'md'} lh={1.2} lineClamp={2}>
+          <Anchor
+            component={Link}
+            inherit
+            href={path}
+            c={'inherit'}
+            title={post.title}
+          >
+            {post.title}
+          </Anchor>
+        </Title>
 
-          <Group gap={'xs'} fz={'xs'}>
-            <Text inherit>{getRegionalDate(post.createdAt).date}</Text>
-
-            <IconCircleFilled size={4} />
-
-            <Anchor
-              component={Link}
-              href={`/blog/categories/${post.category?.id}`}
-              underline="never"
-              inherit
-            >
-              {post.category?.title}
-            </Anchor>
-          </Group>
-        </Stack>
-      </GridCol>
-    </Grid>
+        <Text inherit fz={'xs'} c={'dimmed'} fw={500}>
+          {duration?.value}
+          {duration?.unit[0]} ago
+        </Text>
+      </Stack>
+    </Card>
   );
 }

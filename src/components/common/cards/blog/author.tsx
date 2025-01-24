@@ -103,11 +103,7 @@ export default function Author({ props }: { props: PostRelations['profile'] }) {
                 </Button>
               </Flex>
 
-              {props?.position && (
-                <Text c={'dimmed'} fz={'sm'}>
-                  {props.position}
-                </Text>
-              )}
+              {props?.position && <Text fz={'sm'}>{props.position}</Text>}
             </Stack>
 
             <Text fz={'sm'}>{props?.bio}</Text>

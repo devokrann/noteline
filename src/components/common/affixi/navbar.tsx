@@ -6,13 +6,13 @@ import { Affix, AffixBaseProps, Paper } from '@mantine/core';
 import { useHeadroom, useWindowScroll } from '@mantine/hooks';
 
 import WrapperTransition from '@/components/wrapper/transition';
-import NavbarMain from '@/components/layout/navbars/main';
 import UnderlayGlass from '../underlays/glass';
 
 export default function Navbar({
   position = { left: 0, top: 0, right: 0 },
+  children,
   ...restProps
-}: { position?: AffixBaseProps['position'] } & Omit<
+}: { children: React.ReactNode; position?: AffixBaseProps['position'] } & Omit<
   AffixBaseProps,
   'position' | 'children'
 >) {
@@ -26,9 +26,7 @@ export default function Navbar({
         mounted={scroll.y > 120 && pinned}
       >
         <Paper shadow="xs" bg={'transparent'}>
-          <UnderlayGlass>
-            <NavbarMain />
-          </UnderlayGlass>
+          <UnderlayGlass>{children}</UnderlayGlass>
         </Paper>
       </WrapperTransition>
     </Affix>

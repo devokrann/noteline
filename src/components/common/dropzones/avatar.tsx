@@ -65,14 +65,14 @@ export default function Avatar({ ...restProps }: Partial<DropzoneProps>) {
                 <Text>File accepted</Text>
 
                 <Stack gap={0}>
-                  <Text fz="sm" c="dimmed">
+                  <Text fz="sm">
                     <Text inherit component="span" fw={'bold'}>
                       Accepted Types
                     </Text>
                     : png, gif, jpeg, svg+xml, webp, avif, heic, heif
                   </Text>
 
-                  <Text fz="sm" c="dimmed">
+                  <Text fz="sm">
                     <Text inherit component="span" fw={'bold'}>
                       Max size
                     </Text>

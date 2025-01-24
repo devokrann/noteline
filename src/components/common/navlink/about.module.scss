@@ -1,0 +1,30 @@
+.root {
+  padding: var(--mantine-spacing-xl);
+  border-top: 1px solid var(--mantine-color-default-border);
+  transition: 0.25s all ease;
+
+  @include hover {
+    border-top: 1px solid transparent;
+    background-color: light-dark(
+      var(--mantine-color-priLight-7),
+      var(--mantine-color-priDark-3)
+    );
+    color: light-dark(
+      var(--mantine-color-priDark-3),
+      var(--mantine-color-priLight-7)
+    );
+  }
+}
+
+.label {
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  @include larger-than($mantine-breakpoint-sm) {
+    font-size: 2rem;
+  }
+
+  @include larger-than($mantine-breakpoint-md) {
+    font-size: 2.5rem;
+  }
+}

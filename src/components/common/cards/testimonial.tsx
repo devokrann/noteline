@@ -39,9 +39,7 @@ export default function Testimonial({ props }: { props: typeTestimonial }) {
             <Title order={3} fz={'sm'}>
               {props.cite.person.name}
             </Title>
-            <Text fz={'sm'} c={'dimmed'}>
-              {props.cite.person.title}
-            </Text>
+            <Text fz={'sm'}>{props.cite.person.title}</Text>
           </Stack>
         </Group>
       </Flex>

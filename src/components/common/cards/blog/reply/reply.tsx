@@ -21,7 +21,7 @@ export default function Reply({ props }: { props: ReplyRelations }) {
               {name}
             </Title>
 
-            <Text fz={'sm'} c={'dimmed'}>
+            <Text fz={'sm'}>
               <Text inherit component="span">
                 {getRegionalDate(props.createdAt).date}
               </Text>{' '}

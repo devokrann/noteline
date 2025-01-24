@@ -60,11 +60,11 @@ export default function Modal({
       <ActionIcon
         size={ICON_WRAPPER_SIZE}
         onClick={props.close}
-        variant="light"
+        variant="transparent"
         color="gray"
         pos={'absolute'}
-        top={'var(--mantine-spacing-xs)'}
-        right={'var(--mantine-spacing-xs)'}
+        top={'var(--mantine-spacing-sm)'}
+        right={'var(--mantine-spacing-sm)'}
       >
         <IconX size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
       </ActionIcon>

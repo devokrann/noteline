@@ -45,7 +45,7 @@ export default function Comment({ props }: { props: PostComment }) {
                 {name}
               </Title>
 
-              <Text fz={'sm'} c={'dimmed'}>
+              <Text fz={'sm'}>
                 <Text component="span" inherit>
                   {getRegionalDate(props.createdAt).date}
                 </Text>{' '}

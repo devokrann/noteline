@@ -44,16 +44,14 @@ export default function Body({
       {nav && nav}
       {hero && hero}
       {aside ? (
-        <LayoutSection
-          component={'article'}
-          id="layout-body-section"
-          margined={aside.left?.withBorder || aside.right?.withBorder}
-        >
+        <LayoutSection component={'article'} id="layout-body-section">
           <Flex gap={aside.gap ? aside.gap : 'xl'}>
             {aside.left && handleAside(aside.left.component, aside.left.width)}
+
             {aside.left?.withBorder && (
               <Divider orientation="vertical" visibleFrom="md" />
             )}
+
             <Box
               w={{
                 base: '100%',
@@ -63,9 +61,11 @@ export default function Body({
             >
               {children}
             </Box>
+
             {aside.right?.withBorder && (
               <Divider orientation="vertical" visibleFrom="md" />
             )}
+
             {aside.right &&
               handleAside(aside.right.component, aside.right.width)}
           </Flex>

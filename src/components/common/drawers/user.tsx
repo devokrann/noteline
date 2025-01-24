@@ -9,7 +9,7 @@ import MenuUser from '@/components/common/menus/user';
 import PartialUser from '@/components/partial/user';
 
 import classes from './user.module.scss';
-import { navLinkItems } from '@/components/layout/asides/account';
+import { navLinkItems } from '@/components/layout/asides/profile';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';

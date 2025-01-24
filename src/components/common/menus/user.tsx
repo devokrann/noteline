@@ -15,13 +15,14 @@ import {
   Skeleton,
   Title,
   MenuLabel,
+  Box,
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 import AvatarMain from '../avatars/main';
 
 import classes from './user.module.scss';
-import { navLinkItems } from '@/components/layout/asides/account';
+import { navLinkItems } from '@/components/layout/asides/profile';
 import { ICON_SIZE, ICON_STROKE_WIDTH } from '@/data/constants';
 import { useAppSelector } from '@/hooks/redux';
 import { usePathname } from 'next/navigation';
@@ -55,95 +56,99 @@ export default function User() {
     >
       <MenuTarget>
         <div className={classes.target}>
-          <AvatarMain size={40} />
+          <AvatarMain size={36} />
         </div>
       </MenuTarget>
 
-      <MenuDropdown>
-        {!session ? (
-          <Stack gap={'xs'} align="center">
-            <Skeleton height={16} w={'50%'} radius="sm" />
-            <Skeleton height={16} w={'100%'} radius="sm" />
-          </Stack>
-        ) : (
-          session && (
-            <Stack gap={4} p={'md'}>
-              <Title order={3} fz={'md'} lh={1} ta={'center'}>
-                {session.user_metadata.name}
-              </Title>
-              <Text fz={'sm'} ta={'center'}>
-                {session.email}
-              </Text>
+      {session && (
+        <MenuDropdown>
+          <Box p={'md'}>
+            {!session ? (
+              <Stack gap={'xs'} align="center">
+                <Skeleton height={16} w={'50%'} radius="sm" />
+                <Skeleton height={16} w={'100%'} radius="sm" />
+              </Stack>
+            ) : (
+              session && (
+                <Stack gap={4}>
+                  <Title order={3} fz={'md'} lh={1} ta={'center'}>
+                    {session.user_metadata.name}
+                  </Title>
+                  <Text fz={'sm'} ta={'center'}>
+                    {session.email}
+                  </Text>
 
-              {/* <Text fz={'xs'} ta={'center'}>
+                  {/* <Text fz={'xs'} ta={'center'}>
                 ({getRegionalDate(session.expires).date})
               </Text> */}
-            </Stack>
-          )
-        )}
+                </Stack>
+              )
+            )}
+          </Box>
 
-        <MenuDivider my={0} />
+          <MenuDivider my={0} />
 
-        <MenuLabel>Account</MenuLabel>
+          <MenuLabel>Account</MenuLabel>
 
-        {navLinkItems.account.map((item) => (
-          <MenuItem
-            key={item.label}
-            leftSection={
-              <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            }
-            component={Link}
-            href={item.link}
-            className={
-              matchesPath(item.link) ? classes.itemActive : classes.item
-            }
-          >
-            {item.label}
-          </MenuItem>
-        ))}
+          {navLinkItems.account.map((item) => (
+            <MenuItem
+              key={item.label}
+              leftSection={
+                <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+              }
+              component={Link}
+              href={item.link}
+              className={
+                matchesPath(item.link) ? classes.itemActive : classes.item
+              }
+            >
+              {item.label}
+            </MenuItem>
+          ))}
 
-        <MenuDivider my={0} />
+          <MenuDivider my={0} />
 
-        <MenuLabel>Support</MenuLabel>
+          <MenuLabel>Support</MenuLabel>
 
-        {navLinkItems.support.map((item) => (
-          <MenuItem
-            key={item.label}
-            leftSection={
-              <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            }
-            component={Link}
-            href={item.link}
-            className={
-              matchesPath(item.link) ? classes.itemActive : classes.item
-            }
-          >
-            {item.label}
-          </MenuItem>
-        ))}
+          {navLinkItems.support.map((item) => (
+            <MenuItem
+              key={item.label}
+              leftSection={
+                <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+              }
+              component={Link}
+              href={item.link}
+              className={
+                matchesPath(item.link) ? classes.itemActive : classes.item
+              }
+            >
+              {item.label}
+            </MenuItem>
+          ))}
 
-        <MenuDivider my={0} />
+          <MenuDivider my={0} />
 
-        <MenuLabel>Danger</MenuLabel>
+          <MenuLabel>Danger</MenuLabel>
 
-        {navLinkItems.danger.map((item) => (
-          <MenuItem
-            key={item.label}
-            leftSection={
-              <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
-            }
-            component={Link}
-            href={item.link}
-            className={
-              matchesPath(item.link)
-                ? classes.itemDangerActive
-                : classes.itemDanger
-            }
-          >
-            {item.label}
-          </MenuItem>
-        ))}
-      </MenuDropdown>
+          {navLinkItems.danger.map((item) => (
+            <MenuItem
+              key={item.label}
+              leftSection={
+                <item.icon size={ICON_SIZE} stroke={ICON_STROKE_WIDTH} />
+              }
+              component={Link}
+              href={item.link}
+              className={
+                matchesPath(item.link)
+                  ? classes.itemDangerActive
+                  : classes.itemDanger
+              }
+            >
+              {item.label}
+            </MenuItem>
+          ))}
+        </MenuDropdown>
+      )}
     </Menu>
   );
 }

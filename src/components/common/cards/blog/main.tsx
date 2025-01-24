@@ -1,25 +1,37 @@
 import React from 'react';
 import Link from 'next/link';
 import {
+  ActionIcon,
   Anchor,
   Card,
   Grid,
   GridCol,
   Group,
-  Overlay,
   Stack,
   Text,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { PostRelations } from '@/types/models/post';
 import { linkify } from '@/utilities/formatters/string';
 import ImageDefault from '@/components/common/images/default';
-import BadgePost from '../../badges/post';
-import FooterCardPost from '@/components/layout/footers/card/post';
+import { getRegionalDate } from '@/utilities/formatters/date';
+import {
+  IconBookmarkPlus,
+  IconCircleFilled,
+  IconMessageCircleFilled,
+  IconThumbUpFilled,
+} from '@tabler/icons-react';
+import {
+  ICON_SIZE,
+  ICON_STROKE_WIDTH,
+  ICON_WRAPPER_SIZE,
+} from '@/data/constants';
+import MenuPost from '../../menus/post';
+import { getCount } from '@/utilities/formatters/number';
 
 export default function Main({
   post,
-  minimal,
   withoutExcerpt,
   orientation = 'vertical',
 }: {
@@ -28,69 +40,38 @@ export default function Main({
   withoutExcerpt?: boolean;
   orientation?: 'vertical' | 'horizontal';
 }) {
-  const badge = (
-    <Anchor
-      href={`/blog/categories/${linkify(post.category?.title || '')}-${post.category?.id}`}
-    >
-      <Group>
-        <BadgePost props={post.category} />
-      </Group>
-    </Anchor>
-  );
-
   return (
     <Card
       bg={'transparent'}
       padding={0}
       pb={orientation == 'vertical' ? 'md' : undefined}
     >
-      <Grid>
+      <Grid gutter={'xl'}>
         <GridCol
-          span={{ base: 12, sm: orientation == 'horizontal' ? 5 : undefined }}
+          span={{ base: 12, xs: orientation == 'horizontal' ? 4 : undefined }}
+          order={{ base: 1, xs: orientation == 'horizontal' ? 2 : undefined }}
         >
-          <Group
-            pos={'relative'}
-            h={220}
-            style={{
-              borderRadius: 'var(--mantine-radius-md)',
-              overflow: 'hidden',
-            }}
-          >
-            <Overlay style={{ zIndex: 0 }}>
-              <ImageDefault
-                src={post.image}
-                alt={post.title}
-                height={{ base: 220 }}
-                mode="wide"
-              />
-
-              <Overlay
-                color="#000"
-                backgroundOpacity={0.2}
-                style={{ zIndex: 0 }}
-              />
-            </Overlay>
-
-            <Stack
-              pos={'relative'}
-              p={'md'}
-              h={'100%'}
-              justify="end"
-              display={orientation == 'horizontal' ? 'none' : undefined}
-            >
-              {post.category?.title && badge}
-            </Stack>
-          </Group>
+          <ImageDefault
+            src={post.image}
+            alt={post.title}
+            height={{ base: 200, xs: 120 }}
+            mode="wide"
+            radius={'md'}
+          />
         </GridCol>
 
         <GridCol
-          span={{ base: 12, sm: orientation == 'horizontal' ? 7 : undefined }}
+          span={{ base: 12, xs: orientation == 'horizontal' ? 8 : undefined }}
+          order={{ base: 2, xs: orientation == 'horizontal' ? 1 : undefined }}
         >
-          <Stack gap={'lg'} justify="space-between" h={'100%'}>
+          <Stack gap={'lg'} justify="space-between">
             <Stack>
-              {orientation == 'horizontal' && <Group>{badge}</Group>}
-
-              <Title order={3} fz={{ base: 'xl' }} lineClamp={1}>
+              <Title
+                order={3}
+                fz={{ base: 'xl' }}
+                lineClamp={2}
+                w={{ md: '75%' }}
+              >
                 <Anchor
                   component={Link}
                   underline="hover"
@@ -103,10 +84,63 @@ export default function Main({
                 </Anchor>
               </Title>
 
-              {!withoutExcerpt && <Text lineClamp={3}>{post.excerpt}</Text>}
+              {!withoutExcerpt && (
+                <Text lineClamp={2} fz={'sm'}>
+                  {post.excerpt}
+                </Text>
+              )}
             </Stack>
 
-            <FooterCardPost props={post} options={{ minimal }} />
+            <Group justify="space-between">
+              <Group gap={'xs'} fz={'xs'} fw={500}>
+                <Text inherit>{getRegionalDate(post.createdAt).date}</Text>
+
+                <IconCircleFilled size={2} />
+
+                <Anchor inherit href="#" c={'var(--mantine-color-text)'}>
+                  <Tooltip label={'Likes'} withArrow fz={'xs'}>
+                    <Group gap={4}>
+                      <IconThumbUpFilled size={ICON_SIZE - 6} />
+
+                      <Text inherit component="span">
+                        {getCount(post.likes)}
+                      </Text>
+                    </Group>
+                  </Tooltip>
+                </Anchor>
+
+                <IconCircleFilled size={2} />
+
+                <Anchor inherit href="#" c={'var(--mantine-color-text)'}>
+                  <Tooltip label={'Comments'} withArrow fz={'xs'}>
+                    <Group gap={4}>
+                      <IconMessageCircleFilled size={ICON_SIZE - 6} />
+
+                      <Text inherit component="span">
+                        {getCount(post._count.comments)}
+                      </Text>
+                    </Group>
+                  </Tooltip>
+                </Anchor>
+              </Group>
+
+              <Group>
+                <Tooltip label={'Save'} withArrow fz={'xs'}>
+                  <ActionIcon
+                    size={ICON_WRAPPER_SIZE}
+                    variant="transparent"
+                    color={'var(--mantine-color-text)'}
+                  >
+                    <IconBookmarkPlus
+                      size={ICON_SIZE}
+                      stroke={ICON_STROKE_WIDTH}
+                    />
+                  </ActionIcon>
+                </Tooltip>
+
+                <MenuPost />
+              </Group>
+            </Group>
           </Stack>
         </GridCol>
       </Grid>

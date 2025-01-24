@@ -4,7 +4,16 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { Burger, Button, Drawer, Group, NavLink, Stack } from '@mantine/core';
+import {
+  Burger,
+  BurgerProps,
+  Button,
+  Drawer,
+  DrawerProps,
+  Group,
+  NavLink,
+  Stack,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { SignIn as WrapperSignIn } from '@/components/wrapper/auth';
 import { SignUp as WrapperSignUp } from '@/components/wrapper/auth';
@@ -18,9 +27,13 @@ import { usePathname } from 'next/navigation';
 export default function Main({
   props,
   options,
+  drawerProps,
+  burgerProps,
 }: {
   props: typeMenuNavbar[];
   options?: { absolute?: boolean };
+  drawerProps?: DrawerProps;
+  burgerProps?: BurgerProps;
 }) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const session = useAppSelector((state) => state.session.value);
@@ -103,6 +116,7 @@ export default function Main({
   return (
     <>
       <Drawer
+        {...drawerProps}
         opened={opened}
         onClose={close}
         withCloseButton={false}
@@ -136,6 +150,7 @@ export default function Main({
       </Drawer>
 
       <Burger
+        {...burgerProps}
         opened={opened}
         onClick={toggle}
         size={'sm'}
