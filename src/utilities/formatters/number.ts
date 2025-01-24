@@ -28,3 +28,42 @@ export const prependZeros = (value: number, length: number): string => {
 
   return paddedStr;
 };
+
+/**
+ * Formats a number into a human-readable string with appropriate unit suffixes
+ * (K for thousands, M for millions, B for billions)
+ *
+ * @param value - The number to format
+ * @param decimals - Number of decimal places to show (default: 1)
+ * @returns Formatted string (e.g., "12.3K", "1.5M", "2B")
+ *
+ * @example
+ * getCount(1234)      // "1.2K"
+ * getCount(1234567)   // "1.2M"
+ * getCount(1234, 0)   // "1K"
+ */
+export const getCount = (value: number, decimals: number = 1): string => {
+  const lookup = [
+    { value: 1e9, symbol: 'B' },
+    { value: 1e6, symbol: 'M' },
+    { value: 1e3, symbol: 'K' },
+  ];
+
+  // Handle negative numbers
+  const absoluteValue = Math.abs(value);
+  const sign = value < 0 ? '-' : '';
+
+  // Find the appropriate range
+  const item = lookup.find((item) => absoluteValue >= item.value);
+
+  if (item) {
+    // Format with specified decimal places and symbol
+    const formattedValue = (absoluteValue / item.value).toFixed(decimals);
+    // Remove trailing zeros and decimal point if not needed
+    const cleanValue = parseFloat(formattedValue).toString();
+    return sign + cleanValue + item.symbol;
+  }
+
+  // Return the original number if it's smaller than 1000
+  return sign + absoluteValue.toString();
+};
